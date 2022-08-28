@@ -19,7 +19,7 @@ function App() {
   if (!data) return null;
   console.log(data);
   return (
-    <div className="bg-black">
+    <div className="bg-black min-h-screen">
       <Router>
         <Routes>
           <Route path="/" exact element={<ShowCoins data={data} />} />
