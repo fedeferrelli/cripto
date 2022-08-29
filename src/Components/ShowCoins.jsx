@@ -43,7 +43,7 @@ function ShowCoins( {data} ) {
     return (
         <div className="max-w-[900px] m-auto flex flex-col sm:flex-row sm:flex-wrap gap-1 sm:gap-2 r">
             <div className="m-auto w-11/12">
-            <input type='text' placeholder="Buscar" className="italic px-3 py-2 bg-gray-600/50 border border-gray-600 rounded-lg shadow-sm shadow-gray-800  m-auto mt-2 text-gray-400 outline-none sticky w-20 focus:w-full focus:border-white ease-in-out duration-300 ml-0" onChange={(e)=>{setFilter(e.target.value)}}></input>
+            <input type='text' placeholder="Buscar" className="italic px-3 py-2 bg-gray-600/50 border border-gray-600 rounded-lg shadow-sm shadow-gray-800  m-auto mt-2 text-gray-400 outline-none sticky w-20 focus:w-full focus:border-indigo-800 ease-in-out duration-300 ml-0" onChange={(e)=>{setFilter(e.target.value)}}></input>
             </div>	
             
     {filteredData.map((e, index)=>(
@@ -54,7 +54,8 @@ function ShowCoins( {data} ) {
                     
                     <h1 className="text-white font-semibold">{e.market_cap_rank}. <span className="text-xl">{e.name}</span></h1>
                     
-                    <div>Price: USD {e.current_price.toFixed(2).toLocaleString('de-DE')}</div>
+                    <div>Price: USD {e.current_price.toLocaleString('DE-de')
+                    }</div>
                     
                     
                     <div className="font-light">Daily Change: 
