@@ -41,8 +41,10 @@ function ShowCoins( {data} ) {
       console.log(localStorage)
     
     return (
-        <div className="max-w-[900px] m-auto flex flex-col sm:flex-row sm:flex-wrap gap-1 sm:gap-2">
-            <input type='text' placeholder="Buscar" className="italic px-3 py-2 rounded-lg border border-white bg-transparent w-11/12 m-auto mt-2 text-gray-400 outline-none" onChange={(e)=>{setFilter(e.target.value)}}></input>	
+        <div className="max-w-[900px] m-auto flex flex-col sm:flex-row sm:flex-wrap gap-1 sm:gap-2 r">
+            <div className="m-auto w-11/12">
+            <input type='text' placeholder="Buscar" className="italic px-3 py-2 bg-gray-600/50 border border-gray-600 rounded-lg shadow-sm shadow-gray-800  m-auto mt-2 text-gray-400 outline-none sticky w-20 focus:w-full focus:border-white ease-in-out duration-300 ml-0" onChange={(e)=>{setFilter(e.target.value)}}></input>
+            </div>	
             
     {filteredData.map((e, index)=>(
                 <div onClick={()=>setCoinToBeDetailed(e)} key={index} className="border w-11/12 sm:w-60 bg-gray-600/50 border-gray-600 rounded-lg shadow-sm shadow-gray-800 px-3 py-4 my-2 m-auto text-white">
