@@ -17,13 +17,13 @@ function App() {
   }, []);
 
   if (!data) return null;
-  console.log(data);
+ 
   return (
     <div className="bg-black min-h-screen">
       <Router>
         <Routes>
           <Route path="/" exact element={<ShowCoins data={data} />} />
-          <Route path="/detailedCoin" exact element={<Detail />} />
+          <Route path="/detailedCoin" exact element={<Detail/>} />
         </Routes>
       </Router>
     </div>
