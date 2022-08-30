@@ -27,7 +27,7 @@ function ShowCoins( {data} ) {
             e.id.toLowerCase().includes(filter.toLowerCase())
             ) 
             setFilteredData(filterAux);
-            setShowLoading(false)
+           // setShowLoading(false)
         };
 
         getFilteredData()
@@ -74,7 +74,7 @@ function ShowCoins( {data} ) {
                      {e.price_change_percentage_24h<0 ? 
                      <span className="text-red-500 font-normal"> {e.price_change_percentage_24h.toFixed(2).toLocaleString('de-DE')}%</span>
                      : 
-                     <span className="text-green-700 font-normal"> {e.price_change_percentage_24h.toLocaleString('de-DE')}%</span>}</div>
+                     <span className="text-green-700 font-normal"> {e.price_change_percentage_24h.toFixed(2).toLocaleString('de-DE')}%</span>}</div>
                     </div>
                     </section>
 
