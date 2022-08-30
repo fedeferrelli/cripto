@@ -27,7 +27,7 @@ function ShowCoins( {data} ) {
             e.id.toLowerCase().includes(filter.toLowerCase())
             ) 
             setFilteredData(filterAux);
-           // setShowLoading(false)
+            setShowLoading(false)
         };
 
         getFilteredData()
