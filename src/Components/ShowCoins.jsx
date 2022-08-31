@@ -51,8 +51,8 @@ function ShowCoins( {data} ) {
 
             
             
-            <div className="m-auto w-11/12 sticky top-1">
-            <input type='text' placeholder="Buscar" className="italic px-3 py-2 bg-gray-800 border border-gray-600 rounded-lg shadow-sm shadow-gray-800  m-auto mt-2 text-gray-400 outline-none sticky w-20 focus:w-full focus:border-indigo-800 ease-in-out duration-300 ml-0" onChange={(e)=>{setFilter(e.target.value)}}></input>
+            <div className="m-auto w-11/12 sticky top-0 py-2 bg-black">
+            <input type='text' placeholder="Buscar" className="italic  px-3 py-2 bg-gray-800 border border-gray-600 rounded-lg shadow-sm shadow-gray-800  m-auto text-gray-400 outline-none w-20 focus:w-full focus:border-indigo-800 ease-in-out duration-300 ml-0" onChange={(e)=>{setFilter(e.target.value)}}></input>
             </div>
 
             {showLoading && <div className="w-full h-screen flex "><ImSpinner9 className="m-auto text-4xl text-gray-600 animate-spin"/></div>}
