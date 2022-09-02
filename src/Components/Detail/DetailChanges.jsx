@@ -22,7 +22,7 @@ function DetailChanges({coin}) {
  ( 
      typeof(e.value) !== 'undefined' &&
 <div key={e.name} className="w-1/3 p-2 text-white">
-    <div className="border border-gray-800 shadow-lg shadow-gray-800/30 rounded-md text-center">
+    <div className="border border-gray-600 shadow-lg shadow-gray-800/50 rounded-md text-center">
         <h1>{e.name}</h1>
         
                          

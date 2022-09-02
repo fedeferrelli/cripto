@@ -15,19 +15,19 @@ function DetailMoreData({coin}) {
            <Fade className="w-full mx-auto mt-2 text-white animate-bounce-once text-center">
                
                
-               <div>Market Cap: USD {BigInt(coin.market_cap.toFixed()).toLocaleString('us-US')} <span className="italic font-light">({coin.market_cap_rank})</span></div>
-               <div>Market Cap daily change : {(coin.market_cap_change_percentage_24h).toFixed(2).toLocaleString('us-US')}% </div>
-               <div>Circulación: {BigInt(coin.circulating_supply.toFixed()).toLocaleString('us-US')} </div>
-               { coin.max_supply && <div>Oferta máxima: {BigInt(coin.max_supply.toFixed()).toLocaleString('us-US')} </div>}
+               <div>Market Cap: USD {BigInt(coin.market_cap.toFixed()).toLocaleString('de-DE')} <span className="italic font-light">({coin.market_cap_rank})</span></div>
+               <div>Market Cap daily change : {(coin.market_cap_change_percentage_24h).toFixed(2).toLocaleString('de-DE')}% </div>
+               <div>Circulación: {BigInt(coin.circulating_supply.toFixed()).toLocaleString('de-DE')} </div>
+               { coin.max_supply && <div>Oferta máxima: {BigInt(coin.max_supply.toFixed()).toLocaleString('de-DE')} </div>}
                <div>All time high: USD {coin.ath.toFixed(2).toLocaleString('de-DE')} </div>
-               <div>ATH date: {day}-{month}-{year} </div>
+               <div>ATH date: {day}/{month}/{year} </div>
                
-               <div onClick={()=>setShow(!show)} className="w-11/12 mx-auto mt-2 text-gray-700 text-center">Show less</div>    
+               <div onClick={()=>setShow(!show)} className="w-11/12 mx-auto mt-2 text-gray-600 text-center">Show less</div>    
                
            </Fade>
            :
 
-           <div onClick={()=>setShow(!show)} className="w-11/12 mx-auto mt-2 text-gray-700 text-center">Show more</div>
+           <div onClick={()=>setShow(!show)} className="w-11/12 mx-auto mt-2 text-gray-600 text-center">Show more</div>
            
 
         }
