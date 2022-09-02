@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import DeatailHeader from "./Detail/DeatailHeader";
+import DetailChanges from "./Detail/DetailChanges";
+import DetailMoreData from "./Detail/DetailMoreData";
 
 function Detail() {
   const [tokenData, setTokenData] = useState();
@@ -26,21 +29,48 @@ function Detail() {
       </div>
 
       {tokenData ? (
-        <section className="min-h-screen flex flex-col ">
-          <h1 className="w-full mx-auto text-3xl text-center">
+
+        <>
+
+        <DeatailHeader coin={tokenData}/>
+
+        <DetailChanges coin={tokenData}/>
+
+        <DetailMoreData coin = {tokenData}/>
+
+        </>
+
+       /*  <section className="min-h-screen flex flex-col pt-4">
+          <img
+            src={tokenData.image}
+            alt="coin_img"
+            className="w-24 mx-auto drop-shadow-lg shadow-white/50 animate-spin-once"
+          />
+          <h1 className="w-full mx-auto mt-2 text-4xl text-center">
             {" "}
             {tokenData.name}
           </h1>
 
-          <div className="w-full mx-auto text-2xl text-center font-bold mt-4">
-            {tokenData.current_price.toLocaleString("DE-de")}
+          <div className="w-full mx-auto text-3xl text-center font-bold mt-2">
+            USD {tokenData.current_price.toLocaleString("DE-de")}
           </div>
-          <img
-            src={tokenData.image}
-            alt="coin_img"
-            className="w-48 m-auto rounded-full shadow-lg shadow-black/50"
-          />
-        </section>
+
+          <div className="font-light mx-auto text-xl">Daily Change: 
+                    
+            {tokenData.price_change_percentage_24h<0 ? 
+            <span className="text-red-500 font-bold"> {tokenData.price_change_percentage_24h.toFixed(2).toLocaleString('de-DE')}%</span>
+            : 
+            <span className="text-green-700 font-bold"> {tokenData.price_change_percentage_24h.toFixed(2).toLocaleString('de-DE')}%</span>}</div>
+
+<div className="font-light mx-auto">Daily Change: 
+                    
+                    {tokenData.price_change_percentage_1h_in_currency<0 ? 
+                    <span className="text-red-500 font-bold"> {tokenData.price_change_percentage_1h_in_currency.toFixed(2).toLocaleString('de-DE')}%</span>
+                    : 
+                    <span className="text-green-700 font-bold"> {tokenData.price_change_percentage_1h_in_currency.toFixed(2).toLocaleString('de-DE')}%</span>}</div>
+           
+          
+        </section> */
       ) : null}
     </div>
   );
