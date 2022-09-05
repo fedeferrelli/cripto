@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
-import {ImSpinner9} from 'react-icons/im'
+import {ImSpinner9} from 'react-icons/im';
+import {AiFillHeart, AiOutlineHeart} from 'react-icons/ai'
 
 function ShowCoins( {data} ) {
 
@@ -11,6 +12,9 @@ function ShowCoins( {data} ) {
 
     const [showLoading, setShowLoading] = useState(true);
 
+    const [favourites, setFavourites] = useState([]);
+
+   
   { data &&
   
     useEffect(() => {
@@ -46,7 +50,7 @@ function ShowCoins( {data} ) {
       };
 
     return (
-        <div className="max-w-[900px] m-auto flex flex-col sm:flex-row sm:flex-wrap gap-1 sm:gap-2 r">
+        <div className="max-w-[900px] m-auto flex flex-col sm:flex-row sm:flex-wrap gap-1 sm:gap-2">
 
 
             
@@ -58,10 +62,11 @@ function ShowCoins( {data} ) {
             {showLoading && <div className="w-full h-screen flex "><ImSpinner9 className="m-auto text-4xl text-gray-600 animate-spin"/></div>}
             
     {filteredData.map((e, index)=>(
-                <div onClick={()=>setCoinToBeDetailed(e)} key={index} className="border w-11/12 sm:w-60 bg-gray-600/50 border-gray-600 rounded-lg shadow-sm shadow-gray-800 px-3 py-4 my-2 m-auto text-white">
-                    <section className="flex flex-row gap-4 justify-left items-center w-full">
+                <div /* onClick={()=>setCoinToBeDetailed(e)} */ key={index} className="border w-11/12 sm:w-60 bg-gray-600/50 border-gray-600 rounded-lg shadow-sm shadow-gray-800 px-3 py-4 my-2 m-auto text-white relative">
+                    <section className="flex flex-row gap-4 justify-left items-center w-full ">
                     <img src={e.image} alt="coin_img" className="w-12 rounded-full shadow-lg shadow-black/50"/>
-                    <div className="font-semibold">
+
+                    <div className="font-semibold bg-yellow-500"  onClick={()=>setCoinToBeDetailed(e)}>
                     
                     <h1 className="text-white font-semibold">{e.market_cap_rank}. <span className="text-xl">{e.name}</span></h1>
                     
@@ -75,6 +80,25 @@ function ShowCoins( {data} ) {
                      <span className="text-red-500 font-normal"> {e.price_change_percentage_24h.toFixed(2).toLocaleString('de-DE')}%</span>
                      : 
                      <span className="text-green-700 font-normal"> {e.price_change_percentage_24h.toFixed(2).toLocaleString('de-DE')}%</span>}</div>
+                    </div>
+
+                    <div className="right-1 top-1 absolute z-20" >
+
+                    {
+                        favourites.includes(e.symbol) ?
+
+                        <AiFillHeart className="text-2xl text-red-500/50" onClick={()=>setFavourites([...favourites.filter(i=>i!=e.symbol)])}/>
+
+                        :
+
+                        <AiOutlineHeart className="text-2xl text-gray-500" onClick={()=>setFavourites([...favourites, e.symbol])}/>
+
+
+                    }
+
+                       
+                        
+                        
                     </div>
                     </section>
 
