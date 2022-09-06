@@ -1,18 +1,61 @@
 import React, {useState, useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {ImSpinner9} from 'react-icons/im';
-import {AiFillHeart, AiOutlineHeart} from 'react-icons/ai'
+import {AiFillHeart, AiOutlineHeart} from 'react-icons/ai';
+
+
+import db from '../assets/firebase';
+import { collection, doc, setDoc, getDocs } from "firebase/firestore";
+
+
+
+
 
 function ShowCoins( {data} ) {
 
-    console.log(data)
+    const [favourites, setFavourites] = useState([])
+    const [checkFavourites, setCheckFavourites ] = useState(false)
 
     const [filter, setFilter] = useState("");
     const [filteredData, setFilteredData] = useState([]);
 
     const [showLoading, setShowLoading] = useState(true);
 
-    const [favourites, setFavourites] = useState([]);
+   // const [favourites, setFavourites] = useState([]);
+
+
+    useEffect(() => {
+        const downloadFavourites = async () =>{
+            const querySnapshot = await getDocs(collection(db, "cities"));
+        querySnapshot.forEach((doc) => {
+        
+          setFavourites(doc.data().favs);
+          
+        });
+        };
+        downloadFavourites();
+    }, [checkFavourites])
+
+    
+    const uploadFavourites = async (arrFav) => {
+
+        await setDoc(doc(db, "cities", "LA"), {
+            favs : arrFav
+          });
+    }
+
+
+    const addFavToUpload = (n) => {
+        let newFavs = [...favourites, n];
+        uploadFavourites(newFavs);
+        setCheckFavourites(!checkFavourites)
+    }
+
+    const deleteFavToUpload = (n) => {
+        let newFavs = [...favourites.filter(i=>i!=n)];
+        uploadFavourites(newFavs);
+        setCheckFavourites(!checkFavourites)
+    }
 
    
   { data &&
@@ -66,7 +109,7 @@ function ShowCoins( {data} ) {
                     <section className="flex flex-row gap-4 justify-left items-center w-full ">
                     <img src={e.image} alt="coin_img" className="w-12 rounded-full shadow-lg shadow-black/50"/>
 
-                    <div className="font-semibold bg-yellow-500"  onClick={()=>setCoinToBeDetailed(e)}>
+                    <div className="font-semibold w-full"  onClick={()=>setCoinToBeDetailed(e)}>
                     
                     <h1 className="text-white font-semibold">{e.market_cap_rank}. <span className="text-xl">{e.name}</span></h1>
                     
@@ -87,11 +130,11 @@ function ShowCoins( {data} ) {
                     {
                         favourites.includes(e.symbol) ?
 
-                        <AiFillHeart className="text-2xl text-red-500/50" onClick={()=>setFavourites([...favourites.filter(i=>i!=e.symbol)])}/>
+                        <AiFillHeart className="text-2xl text-red-500/50" onClick={()=>deleteFavToUpload(e.symbol)}/>
 
                         :
 
-                        <AiOutlineHeart className="text-2xl text-gray-500" onClick={()=>setFavourites([...favourites, e.symbol])}/>
+                        <AiOutlineHeart className="text-2xl text-gray-500" onClick={()=>addFavToUpload(e.symbol)}/>
 
 
                     }
