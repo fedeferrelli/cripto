@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ImSpinner9 } from "react-icons/im";
-import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
+import { AiFillHeart, AiOutlineHeart, AiOutlineLoading } from "react-icons/ai";
 import { Fade } from "react-awesome-reveal";
 
 import db from "../assets/firebase";
@@ -9,6 +9,7 @@ import { collection, doc, setDoc, getDocs } from "firebase/firestore";
 
 function ShowCoins({ data }) {
   const [favourites, setFavourites] = useState([]);
+  const [favouritesLoading, setFavouritesLoading] = useState(undefined);
   const [checkFavourites, setCheckFavourites] = useState(false);
 
   const [filter, setFilter] = useState("");
@@ -16,13 +17,12 @@ function ShowCoins({ data }) {
 
   const [showLoading, setShowLoading] = useState(true);
 
-  // const [favourites, setFavourites] = useState([]);
-
   useEffect(() => {
     const downloadFavourites = async () => {
       const querySnapshot = await getDocs(collection(db, "cities"));
       querySnapshot.forEach((doc) => {
         setFavourites(doc.data().favs);
+        setFavouritesLoading(undefined);
       });
     };
     downloadFavourites();
@@ -37,11 +37,13 @@ function ShowCoins({ data }) {
   };
 
   const addFavToUpload = (n) => {
+    setFavouritesLoading(n);
     let newFavs = [...favourites, n];
     uploadFavourites(newFavs);
   };
 
   const deleteFavToUpload = (n) => {
+    setFavouritesLoading(n);
     let newFavs = [...favourites.filter((i) => i != n)];
     uploadFavourites(newFavs);
   };
@@ -69,8 +71,6 @@ function ShowCoins({ data }) {
   const setCoinToBeDetailed = (coin) => {
     sessionStorage.setItem("token", JSON.stringify(coin));
     navigate("/detailedCoin");
-    console.log("fede");
-    console.log(sessionStorage);
   };
 
   return (
@@ -94,7 +94,7 @@ function ShowCoins({ data }) {
 
       {filteredData.map((e, index) => (
         <div
-          /* onClick={()=>setCoinToBeDetailed(e)} */ key={index}
+          key={index}
           className="border w-11/12 sm:w-60 bg-gray-600/50 border-gray-600 rounded-lg shadow-sm shadow-gray-800 px-3 py-4 my-2 m-auto text-white relative"
         >
           <section className="flex flex-row gap-4 justify-left items-center w-full ">
@@ -137,17 +137,21 @@ function ShowCoins({ data }) {
             </div>
 
             <div className="right-1 top-1 absolute z-20">
-              {favourites.includes(e.symbol) ? (
+              {favouritesLoading === e.symbol ? (
+                <Fade duration="500">
+                  <AiOutlineLoading className="text-2xl text-gray-500/50 animate-spin" />
+                </Fade>
+              ) : favourites.includes(e.symbol) ? (
                 <Fade duration="500">
                   <AiFillHeart
-                    className="text-2xl text-red-500/50 animate-spin-once"
+                    className="text-2xl text-red-500/50 animate-spin-once cursor-pointer"
                     onClick={() => deleteFavToUpload(e.symbol)}
                   />
                 </Fade>
               ) : (
                 <Fade duration="500">
                   <AiOutlineHeart
-                    className="text-2xl text-gray-500"
+                    className="text-2xl text-gray-500 cursor-pointer"
                     onClick={() => addFavToUpload(e.symbol)}
                   />
                 </Fade>
