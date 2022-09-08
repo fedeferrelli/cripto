@@ -17,19 +17,23 @@ function ShowCoins({ data }) {
 
   const [showLoading, setShowLoading] = useState(true);
 
+  const navigate = useNavigate();
+  
   useEffect(() => {
     const downloadFavourites = async () => {
-      const querySnapshot = await getDocs(collection(db, "cities"));
+      const querySnapshot = await getDocs(collection(db, "coins"));
       querySnapshot.forEach((doc) => {
         setFavourites(doc.data().favs);
         setFavouritesLoading(undefined);
+        
       });
     };
     downloadFavourites();
   }, [checkFavourites]);
 
+
   const uploadFavourites = async (arrFav) => {
-    await setDoc(doc(db, "cities", "LA"), {
+    await setDoc(doc(db, "coins", "favourites"), {
       favs: arrFav,
     });
 
@@ -40,6 +44,8 @@ function ShowCoins({ data }) {
     setFavouritesLoading(n);
     let newFavs = [...favourites, n];
     uploadFavourites(newFavs);
+
+    console.log('fede')
   };
 
   const deleteFavToUpload = (n) => {
@@ -66,7 +72,7 @@ function ShowCoins({ data }) {
       }, [filter, checkFavourites]);
   }
 
-  const navigate = useNavigate();
+
 
   const setCoinToBeDetailed = (coin) => {
     sessionStorage.setItem("token", JSON.stringify(coin));
@@ -75,7 +81,7 @@ function ShowCoins({ data }) {
 
   return (
     <div className="max-w-[900px] m-auto flex flex-col sm:flex-row sm:flex-wrap gap-1 sm:gap-2">
-      <div className="m-auto w-11/12 sticky top-0 py-2 bg-black">
+      <div className="m-auto w-11/12 sticky top-0 py-2 bg-black flex">
         <input
           type="text"
           placeholder="Buscar"
@@ -84,6 +90,7 @@ function ShowCoins({ data }) {
             setFilter(e.target.value);
           }}
         ></input>
+        <div className="text-gray-600 flex pl-4"><button className="text-xl m-auto" onClick={()=>navigate('/favourites')}>Favoritos</button></div>
       </div>
 
       {showLoading && (
@@ -137,22 +144,22 @@ function ShowCoins({ data }) {
             </div>
 
             <div className="right-1 top-1 absolute z-20">
-              {favouritesLoading === e.symbol ? (
+              {favouritesLoading === e.id ? (
                 <Fade duration="500">
                   <AiOutlineLoading className="text-2xl text-gray-500/50 animate-spin" />
                 </Fade>
-              ) : favourites.includes(e.symbol) ? (
+              ) : favourites.includes(e.id) ? (
                 <Fade duration="500">
                   <AiFillHeart
                     className="text-2xl text-red-500/50 animate-spin-once cursor-pointer"
-                    onClick={() => deleteFavToUpload(e.symbol)}
+                    onClick={() => deleteFavToUpload(e.id)}
                   />
                 </Fade>
               ) : (
                 <Fade duration="500">
                   <AiOutlineHeart
                     className="text-2xl text-gray-500 cursor-pointer"
-                    onClick={() => addFavToUpload(e.symbol)}
+                    onClick={() => addFavToUpload(e.id)}
                   />
                 </Fade>
               )}
