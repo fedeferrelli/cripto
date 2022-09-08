@@ -81,7 +81,7 @@ function Favourites() {
 
     return (
         <div className="max-w-[900px] m-auto flex flex-col sm:flex-row sm:flex-wrap gap-1 sm:gap-2">
-        <div className="m-auto w-11/12 sticky top-0 py-2 bg-black">
+        <div className="m-auto w-11/12 sticky top-0 py-2 bg-black flex z-10">
           <input
             type="text"
             placeholder="Buscar"
@@ -89,7 +89,12 @@ function Favourites() {
             onChange={(e) => {
               setFilter(e.target.value);
             }}
+
+            
           ></input>
+
+<div className="text-gray-600 flex pl-4"><button className="text-xl m-auto" onClick={()=>navigate('/')}>Lista</button></div>
+         <div className="text-gray-400 flex pl-4"><button className="text-xl m-auto" >Favoritos</button></div>
         </div>
   
         {showLoading && (
