@@ -56,8 +56,7 @@ function Favourites() {
   const deleteFavToUpload = (n) => {
    // setFavouritesLoading(n);
     let newFavs = [...favourites.filter((i) => i != n)];
-    if (newFavs.length===0){setFavourites(['nothing-to-show'])}
-    else uploadFavourites(newFavs);
+   uploadFavourites(newFavs);
   };
 
   const uploadFavourites = async (arrFav) => {
