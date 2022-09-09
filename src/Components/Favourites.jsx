@@ -15,6 +15,7 @@ function Favourites() {
     const [favourites, setFavourites] = useState(['nothing-to-show']);
     const [checkFavourites, setCheckFavourites] = useState(false);
     const [showLoading, setShowLoading] = useState(true);
+    const [filter, setFilter] = useState("")
 
     const navigate = useNavigate();
 
@@ -43,7 +44,10 @@ function Favourites() {
       try {
         await fetch(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${favourites.join('%2C')}&order=market_cap_desc&per_page=100&page=1&sparkline=false&price_change_percentage=1h%2C24h%2C7d%2C14d%2C30d%2C200d%2C1y`)
           .then((response) => response.json())
-          .then((data) => setDataFavourites(data));
+          .then((data) => setDataFavourites(data.filter(e=>
+            e.name.toLowerCase().includes(filter.toLowerCase()) ||
+              e.symbol.toLowerCase().includes(filter.toLowerCase()) ||
+              e.id.toLowerCase().includes(filter.toLowerCase()))));
       } catch (err) {
         console.log(err);
       }
@@ -51,7 +55,7 @@ function Favourites() {
 
     getData();
       
-  }, [favourites])
+  }, [favourites, filter])
 
   const deleteFavToUpload = (n) => {
    // setFavouritesLoading(n);
