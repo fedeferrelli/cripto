@@ -80,17 +80,20 @@ function ShowCoins({ data }) {
 
   return (
     <div className="max-w-[900px] m-auto flex flex-col sm:flex-row sm:flex-wrap  gap-1 sm:gap-2">
-      <div className="m-auto w-11/12 sticky top-0 py-2 bg-black flex z-10">
+      <div className="m-auto w-full sticky top-0 py-2 bg-gray-100  z-50">
+        <div className="w-11/12 m-auto flex">
         <input
           type="text"
           placeholder="Buscar"
-          className="italic  px-3 py-2 bg-gray-800 border border-gray-600 rounded-lg shadow-sm shadow-gray-800  m-auto text-gray-400 outline-none w-20 focus:w-full focus:border-indigo-800 ease-in-out duration-300 ml-0"
+          className="italic  px-3 py-2 bg-gray-200 border border-gray-600 rounded-lg shadow-sm shadow-gray-800  m-auto text-gray-400 outline-none w-20 focus:w-full focus:border-indigo-800 ease-in-out duration-300 ml-0"
           onChange={(e) => {
             setFilter(e.target.value);
           }}
         ></input>
-         <div className="text-gray-400 flex pl-4"><button className="text-xl m-auto">Lista</button></div>
-         <div className="text-gray-600 flex pl-4"><button className="text-xl m-auto" onClick={()=>navigate('/favourites')}>Favoritos</button></div>
+         <div className="text-gray-600 flex pl-4"><button className="text-xl m-auto">Lista</button></div>
+         <div className="text-gray-400 flex pl-4"><button className="text-xl m-auto" onClick={()=>navigate('/favourites')}>Favoritos</button></div>
+         <div className="text-gray-400 flex pl-4"><button className="text-xl m-auto" onClick={()=>navigate('/portfolio')}>Portfolio</button></div>
+         </div>
       </div>
 
       {showLoading && (
@@ -102,7 +105,7 @@ function ShowCoins({ data }) {
       {filteredData.map((e, index) => (
         <div
           key={index}
-          className="border w-11/12 sm:w-60 bg-gray-600/50 border-gray-600 rounded-lg shadow-sm shadow-gray-800 px-3 py-4 my-2 m-auto text-white relative"
+          className="border w-11/12 sm:w-60 bg-gray-200 border-gray-400/50 rounded-lg shadow-md shadow-gray-500 px-3 py-4 my-2 m-auto text-gray-700 relative"
         >
           <section className="flex flex-row gap-4 justify-left items-center w-full ">
             <img
@@ -115,7 +118,7 @@ function ShowCoins({ data }) {
               className="font-semibold w-full"
               onClick={() => setCoinToBeDetailed(e)}
             >
-              <h1 className="text-white font-semibold">
+              <h1 className="text-gray-700 font-semibold">
                 {e.market_cap_rank}. <span className="text-xl">{e.name}</span>
               </h1>
 
