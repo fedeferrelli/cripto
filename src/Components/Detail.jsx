@@ -33,7 +33,7 @@ function Detail() {
 
     const getData = async () => {
       try {
-        await fetch('https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=365')
+        await fetch(`https://api.coingecko.com/api/v3/coins/${tokenData.id}/market_chart?vs_currency=usd&days=365`)
           .then((response) => response.json())
           .then((data) => historicalData=data.prices);
 
@@ -51,7 +51,7 @@ function Detail() {
     };
 
     getData();
-  }, []);
+  }, [tokenData]);
 
   const manipulateDates = (date) =>{
 
