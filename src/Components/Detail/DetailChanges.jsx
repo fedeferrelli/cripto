@@ -15,14 +15,14 @@ function DetailChanges({coin}) {
     ]
 
     return (
-        <section className="w-11/12 mx-auto flex flex-wrap gap-0 mt-3">
+        <section className="w-11/12 mx-auto flex flex-wrap gap-0 mt-3 boyrder rounded-lg shjadow border-gray-400 p-4">
 
  {data.map(e=>
 
  ( 
      typeof(e.value) !== 'undefined' &&
-<div key={e.name} className="w-1/3 p-2 text-white">
-    <div className="border border-gray-600 shadow-lg shadow-gray-800 py-2 rounded-md text-center">
+<div key={e.name} className="w-1/3 p-2 text-gray-700">
+    <div className="border rounded-full border-gray-00 shadow-md shadow-gray-300 py-2 rounded-mpd text-center">
         <h1>{e.name}</h1>
         
                          

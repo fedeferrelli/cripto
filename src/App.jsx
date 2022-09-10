@@ -29,7 +29,7 @@ function App() {
   if (!data) return null;
 
   return (
-    <div className="bg-black min-h-screen">
+    <div className="bg-gray-100 min-h-screen">
       <Router>
         <Routes>
 

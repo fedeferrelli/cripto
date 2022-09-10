@@ -63,7 +63,7 @@ function Detail() {
   console.log(historicalDate)
 
   return (
-    <div className="text-white pt-4 flex flex-col">
+    <div className="text-gray-600 pt-4 flex flex-col">
       <div
         className="rounded-full w-auto text-center bottom-3 ml-4 px-5 py-2 flex gap-2 text-gray-600 border border-gray-600 shadow-md fixed shadow-gray-800"
         onClick={() => navigate(-1)}
