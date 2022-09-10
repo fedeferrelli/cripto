@@ -71,7 +71,10 @@ function Favourites() {
     setCheckFavourites(!checkFavourites);
   };
 
-  
+  const setCoinToBeDetailed = (coin) => {
+    sessionStorage.setItem("token", JSON.stringify(coin));
+    navigate("/detailedCoin");
+  };
 
   if (!dataFavourites) return null;
   if (favourites.length===0) return <div className="text-gray-400 w-full absolute top-0 bottom-0 flex flex-col">
