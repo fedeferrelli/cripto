@@ -4,36 +4,40 @@ import { collection, doc, setDoc, getDocs } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import PortfolioChart from '../../assets/Charts/PortfolioChart'
 import PortfolioHeader from './PorfolioHeader';
-import DetailChanges from '../Detail/DetailChanges'
+import DetailChanges from '../Detail/DetailChanges';
+import {AiOutlinePlus} from 'react-icons/ai';
+import AddCoins from './AddCoin';
 
 function Portfolio({data}) {
     
-    //const [portfolio, setPortfolio] = useState([])
+    const [portfolio, setPortfolio] = useState([])
     const [portfolioValue, setportfolioValue] = useState()
     const [chartCoin, setChartCoin] = useState([]);
     const [chartWeight, setChartWeight] = useState([]);
     const [portfolioChanges, setPortfolioChanges] = useState([]);
+    const [showAddCoin, setShowAddCoin] = useState(false)
     
  
-    const portfolio = [{coinId:'bitcoin', qty : 0.0015}, 
+    /* const portfolio = [{coinId:'bitcoin', qty : 0.0015}, 
                        {coinId:'ethereum', qty : 0.07}, 
                         {coinId:'okb', qty : 3},
                         {coinId:'tether', qty : 80},
                         ]
-
+ */
     const navigate = useNavigate();
  
-/* useEffect(() => {
 
-    const downloadPortfolio = async () => {
-        const querySnapshot = await getDocs(collection(db, "portfolio"));
-        querySnapshot.forEach((doc) => {
-            setPortfolio(doc.data().favs);                 
-        });     
-        //setShowLoading(false);   
+    useEffect(() => {
+        const downloadPortfolio = async () => {
+          const querySnapshot = await getDocs(collection(db, "coins"));
+          querySnapshot.forEach((doc) => {
+            setPortfolio(doc.data().port);
+           // setFavouritesLoading(undefined);
+            
+          });
         };
-        downloadPortfolio();   
-    }, []); */                    
+        downloadPortfolio();
+      }, [showAddCoin]);                   
 
     portfolio.map(e=>
         data.find(coin=>
@@ -126,8 +130,16 @@ console.log(chartWeight)
          <div className="text-gray-600 flex pl-4"><button className="text-xl m-auto" >Portfolio</button></div>
          </div>
       </div>
+
+      <div className="fixed bottom-2 right-2 w-12 h-12 rounded-full border border-gray-400 bg-gray-400 shadow-md shadow-gray-400 flex overflow-hidden p-2" onClick={()=>setShowAddCoin(true)}><AiOutlinePlus className="m-auto text-gray-700 h-full w-full"/></div>
+
+      {
+          showAddCoin && <AddCoins setShowAddCoin={setShowAddCoin} data={data}/>
+
+
+      }
         
-          { typeof(portfolioChanges.price_change_percentage_24h) !== 'undefined' && <PortfolioHeader  portfolioValue={portfolioValue} portfolioChange_1d={portfolioChanges.price_change_percentage_24h}/>
+          { typeof(portfolioChanges.price_change_percentage_24h) !== 'undefined' && typeof(portfolioValue) !== NaN && <PortfolioHeader  portfolioValue={portfolioValue} portfolioChange_1d={portfolioChanges.price_change_percentage_24h}/>
         }
         
         <div className="w-11/12 m-auto mt-8">
@@ -140,7 +152,7 @@ console.log(chartWeight)
         {portfolio.map((e) => (
           <div
             key={e.name}
-            className="w-11/12 bg-gray-400 m-auto rounded-lg my-3 p-3"
+            className="w-11/12 bg-gray-300 m-auto rounded-lg my-3 p-3"
           >
             <div className="flex flex-row items-center gap-2">
               <img
