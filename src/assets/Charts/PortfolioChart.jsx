@@ -35,15 +35,16 @@ export function PortfolioChart({coins, weights}) {
     const data = weights;
     const labels = coins;
 
-    console.log(weights) 
+    
   return <Doughnut data={{
+    
     labels: labels,
     datasets: [
       {
         label: '# of Votes',
         data: data,
         backgroundColor: coins.map(e=>
-            `rgba(${Math.round(Math.random()*255)}, ${Math.round(Math.random()*255)}, ${Math.round(Math.random()*255)})`
+            `rgba(${Math.round(Math.random()*255)}, ${Math.round(Math.random()*255)}, ${Math.round(Math.random()*255)}, 0.8)`
             ),
         borderWidth: 1,
       },

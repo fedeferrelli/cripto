@@ -12,7 +12,7 @@ function DetailMoreData({coin}) {
 <section className="w-11/12 mx-auto text-white font-light">
         { show ? 
 
-           <Fade className="w-full mx-auto mt-2 text-white animate-bounce-once text-center">
+           <Fade className="w-full mx-auto mt-2 text-gray-700 animate-bounce-once text-center">
                
                
                <div>Market Cap: USD {BigInt(coin.market_cap.toFixed()).toLocaleString('de-DE')} <span className="italic font-light">({coin.market_cap_rank})</span></div>

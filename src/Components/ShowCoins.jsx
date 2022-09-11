@@ -8,6 +8,8 @@ import db from "../assets/firebase";
 import { collection, doc, setDoc, getDocs } from "firebase/firestore";
 
 function ShowCoins({ data }) {
+
+  console.log(data)
   const [favourites, setFavourites] = useState([]);
   const [favouritesLoading, setFavouritesLoading] = useState(undefined);
   const [checkFavourites, setCheckFavourites] = useState(false);
