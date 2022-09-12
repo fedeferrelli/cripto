@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { ImSpinner9 } from "react-icons/im";
+
+import Loading from "../assets/Loading";
+
 import { AiFillHeart, AiOutlineHeart, AiOutlineLoading } from "react-icons/ai";
 import { Fade } from "react-awesome-reveal";
 
@@ -98,8 +100,8 @@ function ShowCoins({ data }) {
       </div>
 
       {showLoading && (
-        <div className="w-full h-screen flex ">
-          <ImSpinner9 className="m-auto text-4xl text-gray-600 animate-spin" />
+        <div className="w-full h-screen flex">
+          <Loading />
         </div>
       )}
 

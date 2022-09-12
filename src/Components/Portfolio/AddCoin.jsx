@@ -8,6 +8,8 @@ function AddCoin({setShowAddCoin, data}) {
 
     const [filteredData, setFilteredData] = useState("");
     const [showFilteredData, setShowFilteredData] = useState(false);
+    
+    const [coinToShowInInput, setCoinToShowInInput] = useState();
     const [coinToAdd, setCoinToAdd] = useState("")
     const [cantidad, setCantidad] = useState(0)
 
@@ -51,6 +53,8 @@ function AddCoin({setShowAddCoin, data}) {
     const addCoinToAdd = (index) =>{
 
         setCoinToAdd(data.filter(e=>(e.name.toLowerCase().includes(filteredData.toLowerCase())))[index].id)
+
+        setCoinToShowInInput(data.filter(e=>(e.name.toLowerCase().includes(filteredData.toLowerCase())))[index].name)
         setShowFilteredData(false);
         setShowValueAtInput(true)
 
@@ -86,9 +90,9 @@ function AddCoin({setShowAddCoin, data}) {
     console.log(dataToUpload)
 
     return (
-        <div className="w-full flex h-screen fixed bottom-0 top-0 right-0 left-0 bg-gray-400/90 z-50">
+        <div className="w-full flex h-screen fixed bg-gray-400 z-50">
             
-            <section className="w-11/12 m-auto flex flex-col border border-gray-500 bg-gray-300 shadow-md rounded-lg p-4">
+            <section className="w-11/12 mt-20 mb-auto mx-auto flex flex-col border border-gray-500 bg-gray-300 shadow-md rounded-lg p-4">
 
                 <h1 className="w-full text-gray-700 px-6 text-center m-auto text-xl mb-5">¿Qué cripto querés agregar a tu portafolio?</h1>
 
@@ -96,7 +100,7 @@ function AddCoin({setShowAddCoin, data}) {
 
                 <div className="relative">
 
-                <input type='text' placeholder="Cripto" className="w-full  p-2 rounded-md bg-gray-200 border border-gray-500 outline-gray-600" onClick={()=>clearValueToAdd()} onChange={(e)=>setFilteredData(e.target.value)} value={showValueAtInput ? coinToAdd : filteredData} >
+                <input type='text' placeholder="Cripto" className="w-full  p-2 rounded-md bg-gray-200 border border-gray-500 outline-gray-600" onClick={()=>clearValueToAdd()} onChange={(e)=>setFilteredData(e.target.value)} value={showValueAtInput ? coinToShowInInput : filteredData} >
                 </input>
                 {showErrorCoinToAdd && <div className="text-red-500 text-sm pl-2">{errorCoinToAdd}</div>}
                 <div className="absolute w-full bg-gray-400 ">
@@ -104,7 +108,7 @@ function AddCoin({setShowAddCoin, data}) {
                
 
 
-                    {showFilteredData && 
+                    {showFilteredData &&  filteredData.length>=3 &&
                     
                     <>
                      <div className="w-full border-b-[0.2px] border-gray-700 p-1 italic text-gray-200" 

@@ -7,6 +7,7 @@ import PortfolioHeader from "./PorfolioHeader";
 import DetailChanges from "../Detail/DetailChanges";
 import { AiOutlinePlus } from "react-icons/ai";
 import AddCoins from "./AddCoin";
+import Loading from "../../assets/Loading";
 
 function Portfolio({ data }) {
   const [portfolio, setPortfolio] = useState([]);
@@ -15,24 +16,28 @@ function Portfolio({ data }) {
   const [chartWeight, setChartWeight] = useState([]);
   const [portfolioChanges, setPortfolioChanges] = useState([]);
   const [showAddCoin, setShowAddCoin] = useState(false);
+  const [showLoading, setShowLoading] = useState(true);
 
-  /* const portfolio = [{coinId:'bitcoin', qty : 0.0015}, 
-                       {coinId:'ethereum', qty : 0.07}, 
-                        {coinId:'okb', qty : 3},
-                        {coinId:'tether', qty : 80},
-                        ]
- */
+  
   const navigate = useNavigate();
 
   useEffect(() => {
     const downloadPortfolio = async () => {
-      const querySnapshot = await getDocs(collection(db, "coinsPort"));
+      
+      try {const querySnapshot = await getDocs(collection(db, "coinsPort"));
+      console.log('im in')
+      setShowLoading(false)
+
       querySnapshot.forEach((doc) => {
+        
         setPortfolio(doc.data().port);
-        // setFavouritesLoading(undefined);
-      });
+        
+       
+      });}
+      catch{console.log('fede')}
     };
     downloadPortfolio();
+    
   }, [showAddCoin]);
 
   portfolio.map((e) =>
@@ -66,7 +71,7 @@ function Portfolio({ data }) {
     })
   );
 
-  console.log(portfolio);
+  
 
   useEffect(() => {
     let value = portfolio.reduce((a, b) => a + b.totalValue, 0);
@@ -97,8 +102,6 @@ function Portfolio({ data }) {
     setPortfolioChanges(objAux);
   }, [portfolioValue]);
 
-  console.log(portfolioChanges);
-
   useEffect(() => {
     const auxChartCoin = [];
     const auxChartWeight = [];
@@ -110,15 +113,24 @@ function Portfolio({ data }) {
       );
     });
 
-    console.log(auxChartWeight);
     setChartCoin(auxChartCoin);
     setChartWeight(auxChartWeight);
   }, [portfolioValue]);
 
-  console.log(chartWeight);
 
   return (
+
+    
     <div>
+
+{showLoading && (
+        <div className="w-full h-screen flex">
+          <Loading />
+        </div>
+      )}
+
+      {/* barra de navegación */}
+
       <div className="m-auto w-full sticky top-0 py-2 bg-gray-100  z-50">
         <div className="w-11/12 m-auto flex justify-end">
           <div className="text-gray-400 flex pl-4">
@@ -140,6 +152,8 @@ function Portfolio({ data }) {
         </div>
       </div>
 
+      {/* Botón para agregar criptos al portfolio */}
+
       <div
         className="fixed bottom-2 right-2 w-12 h-12 rounded-full border border-gray-400 bg-gray-400 shadow-md shadow-gray-400 flex overflow-hidden p-2"
         onClick={() => setShowAddCoin(true)}
@@ -149,12 +163,15 @@ function Portfolio({ data }) {
 
       {showAddCoin && <AddCoins setShowAddCoin={setShowAddCoin} data={data} />}
 
-      {portfolio.length === 0 && <div className="w-11/12 p-4 m-auto text-xl text-center  my-auto mt-48">Todavía no ingresaste ninguna cripto a tu portfolio. <span className="mt-4 text-2xl block">Hacelo ya!</span></div>}
 
+{/* pantalla */}
+
+      {portfolio.length === 0 && <div className="w-11/12 p-4 m-auto text-xl text-center  my-auto mt-48">Todavía no ingresaste ninguna cripto a tu portfolio. <span className="mt-4 text-2xl block">Hacelo ya!</span></div>}
+ 
       {typeof portfolioChanges.price_change_percentage_24h !== "undefined" &&
         typeof portfolioValue !== NaN && portfolio.length !== 0 && (
           <PortfolioHeader
-            portfolioValue={portfolioValue}
+            portfolioValue={portfolioValue.toFixed(3)}
             portfolioChange_1d={portfolioChanges.price_change_percentage_24h}
           />
         )}
