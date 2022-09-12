@@ -33,7 +33,6 @@ function ShowCoins({ data }) {
     downloadFavourites();
   }, [checkFavourites]);
 
-
   const uploadFavourites = async (arrFav) => {
     await setDoc(doc(db, "coins", "favourites"), {
       favs: arrFav,

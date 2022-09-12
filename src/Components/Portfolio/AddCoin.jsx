@@ -30,7 +30,7 @@ function AddCoin({setShowAddCoin, data}) {
 
     useEffect(() => {
         const downloadPortfolio = async () => {
-          const querySnapshot = await getDocs(collection(db, "coins"));
+          const querySnapshot = await getDocs(collection(db, "coinsPort"));
           querySnapshot.forEach((doc) => {
             setDataToUpload(doc.data().port);
            // setFavouritesLoading(undefined);
@@ -41,7 +41,7 @@ function AddCoin({setShowAddCoin, data}) {
       }, [checkPortfolio]);
 
     const uploadPortfolio = async (arrPortfolio) => {
-        await setDoc(doc(db, "coins", "portfolio"), {
+        await setDoc(doc(db, "coinsPort", "portfolio"), {
           port: arrPortfolio,
         });
     
