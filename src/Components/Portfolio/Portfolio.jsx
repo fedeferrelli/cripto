@@ -34,7 +34,7 @@ function Portfolio({ data }) {
         
        
       });}
-      catch{console.log('fede')}
+      catch(error){console.log(error)}
     };
     downloadPortfolio();
     
@@ -155,7 +155,7 @@ function Portfolio({ data }) {
       {/* Botón para agregar criptos al portfolio */}
 
       <div
-        className="fixed bottom-2 right-2 w-12 h-12 rounded-full border border-gray-400 bg-gray-400 shadow-md shadow-gray-400 flex overflow-hidden p-2"
+        className="fixed bottom-2 right-2 w-14 h-14 rounded-full border border-gray-400 bg-gray-400 shadow-md shadow-gray-400 flex overflow-hidden p-2"
         onClick={() => setShowAddCoin(true)}
       >
         <AiOutlinePlus className="m-auto text-gray-700 h-full w-full" />
@@ -182,9 +182,9 @@ function Portfolio({ data }) {
 
       {portfolio.length !== 0 && <DetailChanges coin={portfolioChanges} />}
 
-      {portfolio.map((e) => (
+      {portfolio.map((e, index) => (
         <div
-          key={e.name}
+          key={e.index}
           className="w-11/12 bg-gray-300 m-auto rounded-lg my-3 p-3"
         >
           <div className="flex flex-row items-center gap-2">

@@ -114,7 +114,7 @@ function AddCoin({setShowAddCoin, data}) {
                      <div className="w-full border-b-[0.2px] border-gray-700 p-1 italic text-gray-200" 
                         ><div onClick={()=> setShowFilteredData(false)}>Cancelar</div></div>
 
-                    {data.filter(e=>(e.name.toLowerCase().includes(filteredData.toLowerCase()) ||  e.symbol.toLowerCase().includes(filteredData.toLowerCase())))
+                    {data.filter(e=>(e.name.toLowerCase().includes(filteredData.toLowerCase())))
                     .map((i, index)=>(
                         <div key={index} className="w-full border-b-[0.2px] border-gray-700 p-2 italic" 
                         onClick={()=> addCoinToAdd(index)}>{i.name}</div>

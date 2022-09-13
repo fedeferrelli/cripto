@@ -2,27 +2,29 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import Loading from "../assets/Loading";
-
+import {Fade} from 'react-awesome-reveal';
 import { AiFillHeart, AiOutlineHeart, AiOutlineLoading } from "react-icons/ai";
-import { Fade } from "react-awesome-reveal";
+
 
 import db from "../assets/firebase";
 import { collection, doc, setDoc, getDocs } from "firebase/firestore";
 
+
+
+
 function ShowCoins({ data }) {
 
-  console.log(data)
+ 
   const [favourites, setFavourites] = useState([]);
   const [favouritesLoading, setFavouritesLoading] = useState(undefined);
   const [checkFavourites, setCheckFavourites] = useState(false);
-
   const [filter, setFilter] = useState("");
   const [filteredData, setFilteredData] = useState([]);
 
   const [showLoading, setShowLoading] = useState(true);
 
   const navigate = useNavigate();
-  
+
   useEffect(() => {
     const downloadFavourites = async () => {
       const querySnapshot = await getDocs(collection(db, "coins"));
@@ -35,9 +37,11 @@ function ShowCoins({ data }) {
     downloadFavourites();
   }, [checkFavourites]);
 
+
   const uploadFavourites = async (arrFav) => {
     await setDoc(doc(db, "coins", "favourites"), {
       favs: arrFav,
+     
     });
 
     setCheckFavourites(!checkFavourites);
@@ -54,7 +58,15 @@ function ShowCoins({ data }) {
     setFavouritesLoading(n);
     let newFavs = [...favourites.filter((i) => i != n)];
     uploadFavourites(newFavs);
+  }; 
+
+  const setCoinToBeDetailed = (coin) => {
+    sessionStorage.setItem("token", JSON.stringify(coin));
+    navigate("/detailedCoin");
   };
+
+  
+
 
   {
     data &&
@@ -71,15 +83,12 @@ function ShowCoins({ data }) {
         };
 
         getFilteredData();
-      }, [filter, checkFavourites]);
+      }, [filter]);
   }
 
 
 
-  const setCoinToBeDetailed = (coin) => {
-    sessionStorage.setItem("token", JSON.stringify(coin));
-    navigate("/detailedCoin");
-  };
+
 
   return (
     <div className="max-w-[900px] m-auto flex flex-col sm:flex-row sm:flex-wrap  gap-1 sm:gap-2">
@@ -110,25 +119,31 @@ function ShowCoins({ data }) {
           key={index}
           className="border w-11/12 sm:w-60 bg-gray-200 border-gray-400/50 rounded-lg shadow-md shadow-gray-500 px-3 py-4 my-2 m-auto text-gray-700 relative"
         >
-          <section className="flex flex-row gap-4 justify-left items-center w-full ">
+          
+        
+          
+        <section className="flex flex-row justify-left items-center w-full ">
             <img
               src={e.image}
               alt="coin_img"
-              className="w-12 rounded-full shadow-lg shadow-black/50"
+              className="w-8 rounded-full shadow-lg shadow-black/50"
             />
 
+            <div className="w-full flex flex-row justify-between">
+
             <div
-              className="font-semibold w-full"
+              className="font-semibold ml-3 w-1/2"
               onClick={() => setCoinToBeDetailed(e)}
             >
               <h1 className="text-gray-700 font-semibold">
                 {e.market_cap_rank}. <span className="text-xl">{e.name}</span>
               </h1>
 
-              <div>Price: USD {e.current_price.toLocaleString("DE-de")}</div>
+             
+             
 
               <div className="font-light">
-                Daily Change:
+                Daily:
                 {e.price_change_percentage_24h < 0 ? (
                   <span className="text-red-500 font-normal">
                     {" "}
@@ -146,8 +161,10 @@ function ShowCoins({ data }) {
                     %
                   </span>
                 )}
-              </div>
-            </div>
+              </div></div>
+
+              <div className="mr-0 justify-center items-center flex text-lg font-semibold w-1/2 max-w-1/2">USD {e.current_price.toLocaleString("es-AR")}</div>
+         
 
             <div className="right-1 top-1 absolute z-20">
               {favouritesLoading === e.id ? (
@@ -169,7 +186,7 @@ function ShowCoins({ data }) {
                   />
                 </Fade>
               )}
-            </div>
+            </div></div>
           </section>
         </div>
       ))}
