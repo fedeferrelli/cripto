@@ -8,6 +8,7 @@ import DetailChanges from "../Detail/DetailChanges";
 import { AiOutlinePlus } from "react-icons/ai";
 import AddCoins from "./AddCoin";
 import Loading from "../../assets/Loading";
+import {AiOutlineDelete} from "react-icons/ai"
 
 function Portfolio({ data }) {
   const [portfolio, setPortfolio] = useState([]);
@@ -17,6 +18,7 @@ function Portfolio({ data }) {
   const [portfolioChanges, setPortfolioChanges] = useState([]);
   const [showAddCoin, setShowAddCoin] = useState(false);
   const [showLoading, setShowLoading] = useState(true);
+  const [checkPortfolio, setCheckPortfolio] = useState(true);
 
   
   const navigate = useNavigate();
@@ -25,12 +27,31 @@ function Portfolio({ data }) {
     const downloadPortfolio = async () => {
       
       try {const querySnapshot = await getDocs(collection(db, "coinsPort"));
-      console.log('im in')
+      
       setShowLoading(false)
 
       querySnapshot.forEach((doc) => {
+
+        // eliminar las coins duplicadas (caso cuando se carga una coin que ya fioguraba en portfolio)
+
+        // array con los ID de las coins del portafolio  
+        let coins = [... new Set(doc.data().port.map(e=>e.coinId))]
+
+        // array con la info desacargada: cada elemnto del array se corresponde con una coin particular. Si la coin esta duplicada, entonces el elemento es un array de dos elementos
+
+        let arrayCoinsAgregadas = coins.map(e=>(doc.data().port.filter(i=> i.coinId===e)))
+
         
-        setPortfolio(doc.data().port);
+        let arrayCoinUnicasAgregadas = [];
+
+        // se busca que el array con dos elemntos (coin duplicada) se tranforme en un objeto con la suma de las cantidades de las coins. Ese objto se agrega a un array final  
+        arrayCoinsAgregadas.map(e=>(
+          arrayCoinUnicasAgregadas.push({coinId: e[0].coinId, qty: e.reduce((a, b)=>
+          a + Number(b.qty), 0)})
+          ))
+        
+        
+        setPortfolio(arrayCoinUnicasAgregadas);
         
        
       });}
@@ -38,7 +59,7 @@ function Portfolio({ data }) {
     };
     downloadPortfolio();
     
-  }, [showAddCoin]);
+  }, [showAddCoin, checkPortfolio]);
 
   portfolio.map((e) =>
     data.find((coin) => {
@@ -118,6 +139,21 @@ function Portfolio({ data }) {
   }, [portfolioValue]);
 
 
+  // eliminar coin del portafolio
+  const uploadPortfolio = async (arrPortfolio) => {
+    await setDoc(doc(db, "coinsPort", "portfolio"), {
+      port: arrPortfolio,
+    });
+
+    setCheckPortfolio(!checkPortfolio);
+  };
+
+  const coinToDelete = (toDelete) =>{
+    const newPortfolioToUpload = portfolio.filter(e=>e.coinId!==toDelete);
+    uploadPortfolio(newPortfolioToUpload)
+  }
+
+
   return (
 
     
@@ -184,7 +220,7 @@ function Portfolio({ data }) {
 
       {portfolio.map((e, index) => (
         <div
-          key={e.index}
+          key={index}
           className="w-11/12 bg-gray-300 m-auto rounded-lg my-3 p-3"
         >
           <div className="flex flex-row items-center gap-2">
@@ -194,6 +230,7 @@ function Portfolio({ data }) {
               className="w-8 rounded-full shadow-lg shadow-black/50"
             />
             <h1 className="text-lg">{e.name}</h1>
+            <div className="w-8 h-8 flex rounded-full shadow-lg bg-gray-100 mr-0" onClick={()=>coinToDelete(e.coinId)}><AiOutlineDelete className="w-12 m-auto text-lg"/></div>
           </div>
 
           <div>

@@ -2,9 +2,7 @@ import React from 'react'
 
 function PortfolioHeader({portfolioValue, portfolioChange_1d}) {
 
-  console.log(portfolioChange_1d)
-
-  console.log(portfolioValue, portfolioChange_1d)
+  
     return (
         <section className="flex flex-col pt-4">
         

@@ -2,7 +2,7 @@ import React from 'react'
 
 function DetailChanges({coin}) {
 
-    console.log(coin, 'fede')
+  
 
     const data = [
         {name:'1 h', value: coin.price_change_percentage_1h_in_currency},
@@ -15,7 +15,7 @@ function DetailChanges({coin}) {
 
     ]
 
-    console.log(data)
+   
 
     return (
         <section className="w-11/12 mx-auto flex flex-wrap gap-0 mt-3 boyrder rounded-lg shjadow border-gray-400 p-4">
