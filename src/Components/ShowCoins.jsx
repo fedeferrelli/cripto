@@ -117,7 +117,7 @@ function ShowCoins({ data }) {
       {filteredData.map((e, index) => (
         <div
           key={index}
-          className="border w-11/12 sm:w-60 bg-gray-200 border-gray-400/50 rounded-lg shadow-md shadow-gray-500 px-3 py-4 my-2 m-auto text-gray-700 relative"
+          className="border w-11/12 sm:w-60 bg-gray-200 border-gray-400/50 rounded-lg shadow-md shadow-gray-500/50 px-3 py-4 my-2 m-auto text-gray-700 relative"
         >
           
         
@@ -126,7 +126,7 @@ function ShowCoins({ data }) {
             <img
               src={e.image}
               alt="coin_img"
-              className="w-8 rounded-full shadow-lg shadow-black/50"
+              className="w-10 rounded-full shadow-lg shadow-black/50"
             />
 
             <div className="w-full flex flex-row justify-between">
