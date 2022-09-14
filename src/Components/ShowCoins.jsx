@@ -129,7 +129,7 @@ function ShowCoins({ data }) {
               className="w-10 rounded-full shadow-lg shadow-black/50"
             />
 
-            <div className="w-full flex flex-row justify-between bg-green-200"
+            <div className="w-full flex flex-row justify-between"
                onClick={() => setCoinToBeDetailed(e)}>
 
             <div
