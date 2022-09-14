@@ -129,11 +129,12 @@ function ShowCoins({ data }) {
               className="w-10 rounded-full shadow-lg shadow-black/50"
             />
 
-            <div className="w-full flex flex-row justify-between">
+            <div className="w-full flex flex-row justify-between "
+               onClick={() => setCoinToBeDetailed(e)}>
 
             <div
               className="font-semibold ml-3 w-1/2"
-              onClick={() => setCoinToBeDetailed(e)}
+           
             >
               <h1 className="text-gray-700 font-semibold">
                 {e.market_cap_rank}. <span className="text-xl">{e.name}</span>
@@ -163,7 +164,7 @@ function ShowCoins({ data }) {
                 )}
               </div></div>
 
-              <div className="mr-0 justify-center items-center flex text-lg font-semibold w-1/2 max-w-1/2">USD {e.current_price.toLocaleString("es-AR")}</div>
+              <div className="mr-0 justify-end items-end flex text-lg font-semibold w-1/2 max-w-1/2 ">USD {e.current_price.toLocaleString("es-AR")}</div>
          
 
             <div className="right-1 top-1 absolute z-20">
