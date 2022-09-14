@@ -122,14 +122,14 @@ function ShowCoins({ data }) {
           
         
           
-        <section className="flex flex-row justify-left items-center w-full ">
+        <section className="flex flex-row py-1 justify-left items-center w-full ">
             <img
               src={e.image}
               alt="coin_img"
               className="w-10 rounded-full shadow-lg shadow-black/50"
             />
 
-            <div className="w-full flex flex-row justify-between "
+            <div className="w-full flex flex-row justify-between bg-green-200"
                onClick={() => setCoinToBeDetailed(e)}>
 
             <div
@@ -167,7 +167,9 @@ function ShowCoins({ data }) {
               <div className="mr-0 justify-end items-end flex text-lg font-semibold w-1/2 max-w-1/2 ">USD {e.current_price.toLocaleString("es-AR")}</div>
          
 
-            <div className="right-1 top-1 absolute z-20">
+            </div>
+          </section>
+          <div className="right-1 top-1 absolute z-20">
               {favouritesLoading === e.id ? (
                 <Fade duration="500">
                   <AiOutlineLoading className="text-2xl text-gray-500/50 animate-spin" />
@@ -187,8 +189,7 @@ function ShowCoins({ data }) {
                   />
                 </Fade>
               )}
-            </div></div>
-          </section>
+            </div>
         </div>
       ))}
     </div>
