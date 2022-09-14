@@ -30,7 +30,8 @@ function Favourites() {
     const downloadFavourites = async () => {
         const querySnapshot = await getDocs(collection(db, "coins"));
         querySnapshot.forEach((doc) => {
-            setFavourites(doc.data().favs);                 
+            setFavourites(doc.data().favs); 
+            setFavouritesLoading(undefined);                
         });     
         setShowLoading(false);   
       };
@@ -60,8 +61,10 @@ function Favourites() {
   }, [favourites, filter])
 
   const deleteFavToUpload = (n) => {
+    setFavouritesLoading(n);
     let newFavs = [...favourites.filter((i) => i != n)];
    uploadFavourites(newFavs);
+  
   };
 
   const uploadFavourites = async (arrFav) => {
@@ -164,21 +167,21 @@ function Favourites() {
                 <Fade duration="500">
                   <AiOutlineLoading className="text-2xl text-gray-500/50 animate-spin" />
                 </Fade>
-              ) : favourites.includes(e.id) ? (
+              ) : favourites.includes(e.id) && (
                 <Fade duration="500">
                   <AiFillHeart
-                    className="text-2xl text-red-500/50 animate-spin-once cursor-pointer"
+                    className="text-2xl text-red-500/50 cursor-pointer"
                     onClick={() => deleteFavToUpload(e.id)}
                   />
                 </Fade>
-              ) : (
+              )/*  : (
                 <Fade duration="500">
                   <AiOutlineHeart
                     className="text-2xl text-gray-500 cursor-pointer"
                     onClick={() => addFavToUpload(e.id)}
                   />
                 </Fade>
-              )}
+              ) */}
             </div>
           </section>
 
