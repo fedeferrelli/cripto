@@ -218,7 +218,7 @@ function Portfolio({ data }) {
 
       {portfolio.length !== 0 && <DetailChanges coin={portfolioChanges} />}
 
-      {portfolio.map((e, index) => (
+      {portfolio.sort((a, b)=>{return b.totalValue - a.totalValue}).map((e, index) => (
         <div
           key={index}
           className="w-11/12 bg-gray-300 m-auto rounded-lg my-3 p-3"
