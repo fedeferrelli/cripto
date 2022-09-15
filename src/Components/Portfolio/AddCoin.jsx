@@ -45,9 +45,10 @@ function AddCoin({setShowAddCoin, data}) {
     const uploadPortfolio = async (arrPortfolio) => {
         await setDoc(doc(db, "coinsPort", "portfolio"), {
           port: arrPortfolio,
-        });
+          });
     
         setCheckPortfolio(!checkPortfolio);
+        setShowAddCoin(false)
       };
 
     const addCoinToAdd = (index) =>{
@@ -83,7 +84,7 @@ function AddCoin({setShowAddCoin, data}) {
         }
         else {
             uploadPortfolio([...dataToUpload, {coinId:coinToAdd, qty : cantidad}]);
-            setShowAddCoin(false)}
+            }
 
     }
 

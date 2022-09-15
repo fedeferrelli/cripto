@@ -240,7 +240,7 @@ console.log(showLoading)
           </div>
 
           <div className="flex justify-left pl-10 gap-4">
-            <span>qty: {e.qty.toFixed(2).toLocaleString("de-DE")}</span>
+            <span>qty: {e.qty.toLocaleString("de-DE")}</span>
             <span> weight: {((e.totalValue / portfolioValue) * 100)
               .toFixed(2)
               .toLocaleString("de-DE")}
