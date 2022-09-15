@@ -28,7 +28,7 @@ function Portfolio({ data }) {
       
       try {const querySnapshot = await getDocs(collection(db, "coinsPort"));
       
-      setShowLoading(false)
+      
 
       querySnapshot.forEach((doc) => {
 
@@ -52,6 +52,7 @@ function Portfolio({ data }) {
         
         
         setPortfolio(arrayCoinUnicasAgregadas);
+        setShowLoading(false)
         
        
       });}
@@ -141,6 +142,7 @@ function Portfolio({ data }) {
 
   // eliminar coin del portafolio
   const uploadPortfolio = async (arrPortfolio) => {
+    
     await setDoc(doc(db, "coinsPort", "portfolio"), {
       port: arrPortfolio,
     });
@@ -149,10 +151,12 @@ function Portfolio({ data }) {
   };
 
   const coinToDelete = (toDelete) =>{
+    setShowLoading(true)
+    console.log('fedeeee')
     const newPortfolioToUpload = portfolio.filter(e=>e.coinId!==toDelete);
     uploadPortfolio(newPortfolioToUpload)
   }
-
+console.log(showLoading)
 
   return (
 
@@ -191,7 +195,7 @@ function Portfolio({ data }) {
       {/* Botón para agregar criptos al portfolio */}
 
       <div
-        className="fixed bottom-2 right-2 w-14 h-14 rounded-full border border-gray-400 bg-gray-400 shadow-md shadow-gray-400 flex overflow-hidden p-2"
+        className="fixed z-50 bottom-2 right-2 w-14 h-14 rounded-full border border-gray-400 bg-gray-400 shadow-md shadow-gray-400 flex overflow-hidden p-2"
         onClick={() => setShowAddCoin(true)}
       >
         <AiOutlinePlus className="m-auto text-gray-700 h-full w-full" />
@@ -221,25 +225,28 @@ function Portfolio({ data }) {
       {portfolio.sort((a, b)=>{return b.totalValue - a.totalValue}).map((e, index) => (
         <div
           key={index}
-          className="w-11/12 bg-gray-300 m-auto rounded-lg my-3 p-3"
+/*           className="w-11/12 bg-gray-300 m-auto rounded-lg my-3 p-3 py-4" */
+          className="border w-11/12 sm:w-60 bg-gray-200 border-gray-400/50 rounded-lg shadow-md shadow-gray-500/50 px-3 py-4 my-5 m-auto text-gray-700 relative"
         >
-          <div className="flex flex-row items-center gap-2">
+          <div className="flex flex-row items-center gap-2 relative">
             <img
               src={e.image}
               alt="coin_img"
               className="w-8 rounded-full shadow-lg shadow-black/50"
             />
-            <h1 className="text-lg">{e.name}</h1>
-            <div className="w-8 h-8 flex rounded-full shadow-lg bg-gray-100 mr-0" onClick={()=>coinToDelete(e.coinId)}><AiOutlineDelete className="w-12 m-auto text-lg"/></div>
+            <h1 className="text-lg font-semibold">{e.name}: USD {e.totalValue.toLocaleString('DE-de')}</h1>
+            
+            <div className="w-8 h-8 shadow-lg shadow-black/50   flex rounded-full  bg-gray-100 absolute right-0" onClick={()=>coinToDelete(e.coinId)}><AiOutlineDelete className="w-12 m-auto text-lg"/></div>
           </div>
 
-          <div>
-            {" "}
-            {e.name}: {e.totalValue.toFixed(2).toLocaleString("de-DE")},{" "}
-            {((e.totalValue / portfolioValue) * 100)
+          <div className="flex justify-left pl-10 gap-4">
+            <span>qty: {e.qty.toFixed(2).toLocaleString("de-DE")}</span>
+            <span> weight: {((e.totalValue / portfolioValue) * 100)
               .toFixed(2)
               .toLocaleString("de-DE")}
-            %
+            %</span>
+            
+           
           </div>
         </div>
       ))}
