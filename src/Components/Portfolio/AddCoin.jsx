@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import db from '../../assets/firebase'
+import db from '../../assets/firebase';
+import Loading from '../../assets/Loading';
 import { collection, doc, setDoc, getDocs } from "firebase/firestore";
 
 function AddCoin({setShowAddCoin, data}) {
@@ -24,6 +25,8 @@ function AddCoin({setShowAddCoin, data}) {
     const [dataToUpload, setDataToUpload] = useState([]);
 
     const [checkPortfolio, setCheckPortfolio] = useState(false)
+
+    const [showLoading, setShowLoading] = useState(false)
 
     console.log(coinToAdd)
 
@@ -84,6 +87,7 @@ function AddCoin({setShowAddCoin, data}) {
         }
         else {
             uploadPortfolio([...dataToUpload, {coinId:coinToAdd, qty : cantidad}]);
+            setShowLoading(true)
             }
 
     }
@@ -91,9 +95,18 @@ function AddCoin({setShowAddCoin, data}) {
     console.log(dataToUpload)
 
     return (
-        <div className="w-full flex h-screen fixed bg-gray-400 z-50">
+
+     
+
+        <div className="w-full flex h-screen fixed top-0 bg-gray-100 z-50">
+
+{showLoading && (
+            <div className="w-full">
+              <Loading />
+            </div>
+          )}
             
-            <section className="w-11/12 mt-20 mb-auto mx-auto flex flex-col border border-gray-500 bg-gray-300 shadow-md rounded-lg p-4">
+            <section className="w-11/12 mt-20 mb-auto mx-auto flex flex-col border border-gray-300/50 bg-gray-200 shadow-md rounded-lg p-4">
 
                 <h1 className="w-full text-gray-700 px-6 text-center m-auto text-xl mb-5">¿Qué cripto querés agregar a tu portafolio?</h1>
 
@@ -141,11 +154,11 @@ function AddCoin({setShowAddCoin, data}) {
            
            
            
-            <section className="w-full px-1 flex flex-row gap-3">
+            <section className="w-full flex flex-row gap-3">
 
-            <button onClick={()=>uploadCoin(coinToAdd, cantidad)} className="w-full m-auto text-center py-2  bg-green-700/95 text-gray-800">Agregar</button>
+            <button onClick={()=>uploadCoin(coinToAdd, cantidad)} className="w-full rounded-lg m-auto text-center py-2 text-lg  bg-green-600/95 text-gray-800">Agregar</button>
             
-            <button onClick={()=>setShowAddCoin(false)} className="w-full text-gray-800 m-auto text-center py-2  bg-red-600/95 cursor-pointer">Cancelar</button>
+            <button onClick={()=>setShowAddCoin(false)} className="w-full rounded-lg text-gray-800 m-auto text-lg text-center py-2  bg-red-500/95 cursor-pointer">Cancelar</button>
             </section>
             
             

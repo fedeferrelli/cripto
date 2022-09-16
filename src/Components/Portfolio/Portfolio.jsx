@@ -24,6 +24,9 @@ function Portfolio({ data }) {
   const navigate = useNavigate();
 
   useEffect(() => {
+
+   
+    
     const downloadPortfolio = async () => {
       
       try {const querySnapshot = await getDocs(collection(db, "coinsPort"));
@@ -52,13 +55,17 @@ function Portfolio({ data }) {
         
         
         setPortfolio(arrayCoinUnicasAgregadas);
-        setShowLoading(false)
+        
+        
         
        
       });}
       catch(error){console.log(error)}
+      setShowLoading(false)
+
     };
     downloadPortfolio();
+   
     
   }, [showAddCoin, checkPortfolio]);
 
@@ -142,6 +149,7 @@ function Portfolio({ data }) {
 
   // eliminar coin del portafolio
   const uploadPortfolio = async (arrPortfolio) => {
+    setShowLoading(true)
     
     await setDoc(doc(db, "coinsPort", "portfolio"), {
       port: arrPortfolio,
@@ -164,14 +172,14 @@ console.log(showLoading)
     <div>
 
 {showLoading && (
-        <div className="w-full h-screen flex">
+        <div className="w-full">
           <Loading />
         </div>
       )}
 
       {/* barra de navegación */}
 
-      <div className="m-auto w-full sticky top-0 py-2 bg-gray-100  z-50">
+      <div className="m-auto w-full sticky top-0 py-2 bg-gray-100  z-40">
         <div className="w-11/12 m-auto flex justify-end">
           <div className="text-gray-400 flex pl-4">
             <button className="text-xl m-auto" onClick={() => navigate("/")}>
@@ -195,7 +203,7 @@ console.log(showLoading)
       {/* Botón para agregar criptos al portfolio */}
 
       <div
-        className="fixed z-50 bottom-2 right-2 w-14 h-14 rounded-full border border-gray-400 bg-gray-400 shadow-md shadow-gray-400 flex overflow-hidden p-2"
+        className="fixed z-50  bottom-2 right-2 w-14 h-14 rounded-full border border-gray-400/50 bg-gray-300 shadow-md shadow-gray-400 flex overflow-hidden p-3"
         onClick={() => setShowAddCoin(true)}
       >
         <AiOutlinePlus className="m-auto text-gray-700 h-full w-full" />
