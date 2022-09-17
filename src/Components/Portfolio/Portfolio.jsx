@@ -20,7 +20,8 @@ function Portfolio({ data }) {
   const [showLoading, setShowLoading] = useState(true);
   const [checkPortfolio, setCheckPortfolio] = useState(true);
   const [showOperations, setShowOperations] = useState(false)
-  const [portfolioRaw, setPortfolioRaw] = useState()
+  const [portfolioRaw, setPortfolioRaw] = useState();
+  const [showDeleteOption, setShowDeleteOption] = useState()
 
   
   const navigate = useNavigate();
@@ -170,6 +171,7 @@ function Portfolio({ data }) {
     setShowLoading(true)
   
     const newPortfolioToUpload = portfolioRaw.filter(e=>e.coinId!==toDelete);
+    setShowDeleteOption()
     uploadPortfolio(newPortfolioToUpload)
   }
 console.log(portfolio)
@@ -254,7 +256,21 @@ const setOperationToBeDetailed = (operations) => {
         >
 
 <div className="w-10/12  h-auto absolute left-0 top-0 bottom-0 z-10" onClick={()=>setOperationToBeDetailed(e)} ></div>
-          
+
+
+{showDeleteOption === e.coinId && (
+
+<div className="w-full z-10 flex flex-col justify-between px-3 py-2 bg-gray-100 absolute left-0 top-0 bottom-0 right-0" onClick={()=>coinToDelete(e.coinId)}>
+
+<div className="w-full text-center m-auto"> ¿Estás seguro? </div>
+  
+  <div className="text-center flex text-gray-200 justify-evenly "> 
+    <button className="bg-green-700 w-1/3" onClick={()=>coinToDelete(e.coinId)}> Sí </button>
+    <button className=" bg-red-500 w-1/3  rounded-sm py-1" onClick={()=>setShowDeleteOption()}> cancelar </button>
+  </div>
+
+</div>)
+}          
 
 
           <div className="flex flex-row items-center gap-2 relative">
@@ -264,9 +280,16 @@ const setOperationToBeDetailed = (operations) => {
               className="w-8 rounded-full shadow-lg shadow-black/50"
             />
             <h1 className="text-lg font-semibold">{e.name}: USD {e.totalValue.toLocaleString('DE-de')}  </h1>
+
+            {/* borrar coin */}
             
-            <div className="w-8  h-8 shadow-lg shadow-black/50   flex rounded-full  bg-gray-100 absolute right-0" onClick={()=>coinToDelete(e.coinId)}><AiOutlineDelete className="w-12 m-auto text-lg"/></div>
+            <div className="w-8  h-8 shadow-lg shadow-black/50   flex rounded-full  bg-gray-100 absolute right-0" onClick={()=>setShowDeleteOption(e.coinId)}><AiOutlineDelete className="w-12 m-auto text-lg"/></div>
+
+
           </div>
+
+          
+          
 
           <div className="flex justify-left pl-10 gap-4">
             <span>qty: {e.qty.toLocaleString("de-DE")}</span>
