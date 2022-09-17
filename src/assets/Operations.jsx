@@ -74,7 +74,7 @@ function Operations() {
         </h1>
 
         <div className="w-full mx-auto text-3xl text-center font-bold mt-2">
-          USD {operations.totalValue.toLocaleString("DE-de")}
+          USD {operations.totalValue.toFixed(2).toLocaleString("DE-de")}
         </div>
 
         <div className="w-full mx-auto text-center text-lg font-light mt-1">
@@ -82,7 +82,7 @@ function Operations() {
         </div>
         
         <div className="w-full mx-auto text-center text-lg font-light mt-1">
-          precio USD {operations.current_price.toLocaleString("DE-de")}
+          precio USD {operations.current_price.toFixed(2).toLocaleString("DE-de")}
         </div>
 
       </section>
@@ -98,9 +98,9 @@ function Operations() {
 
             <div className="w-2/3 text-left">
 
-          <div>cantidad: {e.qty}</div>
+          <div>cantidad: {Number(e.qty).toLocaleString('DE-de')}</div>
 
-          <div>price: USD {e.price.toLocaleString('DE-de')}</div>
+          <div>price: USD {e.price.toFixed(2).toLocaleString('DE-de')}</div>
 
          <div>value: USD {e.value.toLocaleString('DE-de')}</div>
           </div>

@@ -20,6 +20,7 @@ function Portfolio({ data }) {
   const [showLoading, setShowLoading] = useState(true);
   const [checkPortfolio, setCheckPortfolio] = useState(true);
   const [showOperations, setShowOperations] = useState(false)
+  const [portfolioRaw, setPortfolioRaw] = useState()
 
   
   const navigate = useNavigate();
@@ -36,7 +37,10 @@ function Portfolio({ data }) {
 
       querySnapshot.forEach((doc) => {
 
-       // console.log(doc.data().port.map(e => new Date(e.date.seconds*1000).getDate()))
+       // guarda un portfolio raw para manejar el eliminado
+
+       setPortfolioRaw(doc.data().port);
+       console.log(doc.data().port)
 
         // eliminar las coins duplicadas (caso cuando se carga una coin que ya fioguraba en portfolio)
 
@@ -165,7 +169,7 @@ function Portfolio({ data }) {
   const coinToDelete = (toDelete) =>{
     setShowLoading(true)
   
-    const newPortfolioToUpload = portfolio.filter(e=>e.coinId!==toDelete);
+    const newPortfolioToUpload = portfolioRaw.filter(e=>e.coinId!==toDelete);
     uploadPortfolio(newPortfolioToUpload)
   }
 console.log(portfolio)
@@ -178,7 +182,7 @@ const setOperationToBeDetailed = (operations) => {
   return (
 
     
-    <div>
+    <div className="pb-16">
 
 {showLoading && (
         <div className="w-full">
@@ -246,8 +250,13 @@ const setOperationToBeDetailed = (operations) => {
         <div
           key={index}
 /*           className="w-11/12 bg-gray-300 m-auto rounded-lg my-3 p-3 py-4" */
-          className="border w-11/12 sm:w-60 bg-gray-200 border-gray-400/50 rounded-lg shadow-md shadow-gray-500/50 px-3 py-4 my-5 m-auto text-gray-700 relative" onClick={()=>setOperationToBeDetailed(e)}
+          className="border w-11/12 sm:w-60 bg-gray-200 border-gray-400/50 rounded-lg shadow-md shadow-gray-500/50 px-3 py-4 my-5 m-auto text-gray-700 relative overflow-hidden" 
         >
+
+<div className="w-10/12  h-auto absolute left-0 top-0 bottom-0 z-10" onClick={()=>setOperationToBeDetailed(e)} ></div>
+          
+
+
           <div className="flex flex-row items-center gap-2 relative">
             <img
               src={e.image}
@@ -256,7 +265,7 @@ const setOperationToBeDetailed = (operations) => {
             />
             <h1 className="text-lg font-semibold">{e.name}: USD {e.totalValue.toLocaleString('DE-de')}  </h1>
             
-            <div className="w-8 h-8 shadow-lg shadow-black/50   flex rounded-full  bg-gray-100 absolute right-0" onClick={()=>coinToDelete(e.coinId)}><AiOutlineDelete className="w-12 m-auto text-lg"/></div>
+            <div className="w-8  h-8 shadow-lg shadow-black/50   flex rounded-full  bg-gray-100 absolute right-0" onClick={()=>coinToDelete(e.coinId)}><AiOutlineDelete className="w-12 m-auto text-lg"/></div>
           </div>
 
           <div className="flex justify-left pl-10 gap-4">
