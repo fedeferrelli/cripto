@@ -8,17 +8,18 @@ import DetailChanges from "../Detail/DetailChanges";
 import { AiOutlinePlus } from "react-icons/ai";
 import AddCoins from "./AddCoin";
 import Loading from "../../assets/Loading";
-import {AiOutlineDelete} from "react-icons/ai"
+import {AiOutlineDelete} from "react-icons/ai";
 
 function Portfolio({ data }) {
   const [portfolio, setPortfolio] = useState([]);
-  const [portfolioValue, setportfolioValue] = useState();
+  const [portfolioValue, setPortfolioValue] = useState();
   const [chartCoin, setChartCoin] = useState([]);
   const [chartWeight, setChartWeight] = useState([]);
   const [portfolioChanges, setPortfolioChanges] = useState([]);
   const [showAddCoin, setShowAddCoin] = useState(false);
   const [showLoading, setShowLoading] = useState(true);
   const [checkPortfolio, setCheckPortfolio] = useState(true);
+  const [showOperations, setShowOperations] = useState(false)
 
   
   const navigate = useNavigate();
@@ -35,6 +36,8 @@ function Portfolio({ data }) {
 
       querySnapshot.forEach((doc) => {
 
+       // console.log(doc.data().port.map(e => new Date(e.date.seconds*1000).getDate()))
+
         // eliminar las coins duplicadas (caso cuando se carga una coin que ya fioguraba en portfolio)
 
         // array con los ID de las coins del portafolio  
@@ -44,13 +47,14 @@ function Portfolio({ data }) {
 
         let arrayCoinsAgregadas = coins.map(e=>(doc.data().port.filter(i=> i.coinId===e)))
 
-        
+        console.log(arrayCoinsAgregadas) 
         let arrayCoinUnicasAgregadas = [];
 
         // se busca que el array con dos elemntos (coin duplicada) se tranforme en un objeto con la suma de las cantidades de las coins. Ese objto se agrega a un array final  
         arrayCoinsAgregadas.map(e=>(
+
           arrayCoinUnicasAgregadas.push({coinId: e[0].coinId, qty: e.reduce((a, b)=>
-          a + Number(b.qty), 0)})
+          a + Number(b.qty), 0), operations:e.map(i=>  ({'date': i.date.seconds, 'qty':  i.qty, 'price':i.current_price, value: i.value}))}  )
           ))
         
         
@@ -72,8 +76,8 @@ function Portfolio({ data }) {
   portfolio.map((e) =>
     data.find((coin) => {
       if (coin.id === e.coinId) {
-        (e.price = coin.current_price),
-          (e.totalValue = e.qty * e.price),
+        (e.current_price = coin.current_price),
+          (e.totalValue = e.qty * e.current_price),
           (e.name = coin.name);
         e.image = coin.image;
         e.price_change_percentage_1h_in_currency =
@@ -105,7 +109,7 @@ function Portfolio({ data }) {
   useEffect(() => {
     let value = portfolio.reduce((a, b) => a + b.totalValue, 0);
 
-    setportfolioValue(value);
+    setPortfolioValue(value);
   }, [portfolio]);
 
   useEffect(() => {
@@ -160,11 +164,16 @@ function Portfolio({ data }) {
 
   const coinToDelete = (toDelete) =>{
     setShowLoading(true)
-    console.log('fedeeee')
+  
     const newPortfolioToUpload = portfolio.filter(e=>e.coinId!==toDelete);
     uploadPortfolio(newPortfolioToUpload)
   }
-console.log(showLoading)
+console.log(portfolio)
+
+const setOperationToBeDetailed = (operations) => {
+  sessionStorage.setItem("operations", JSON.stringify(operations));
+  navigate("/operations");
+};
 
   return (
 
@@ -176,6 +185,8 @@ console.log(showLoading)
           <Loading />
         </div>
       )}
+
+
 
       {/* barra de navegación */}
 
@@ -231,10 +242,11 @@ console.log(showLoading)
       {portfolio.length !== 0 && <DetailChanges coin={portfolioChanges} />}
 
       {portfolio.sort((a, b)=>{return b.totalValue - a.totalValue}).map((e, index) => (
+        
         <div
           key={index}
 /*           className="w-11/12 bg-gray-300 m-auto rounded-lg my-3 p-3 py-4" */
-          className="border w-11/12 sm:w-60 bg-gray-200 border-gray-400/50 rounded-lg shadow-md shadow-gray-500/50 px-3 py-4 my-5 m-auto text-gray-700 relative"
+          className="border w-11/12 sm:w-60 bg-gray-200 border-gray-400/50 rounded-lg shadow-md shadow-gray-500/50 px-3 py-4 my-5 m-auto text-gray-700 relative" onClick={()=>setOperationToBeDetailed(e)}
         >
           <div className="flex flex-row items-center gap-2 relative">
             <img
@@ -242,7 +254,7 @@ console.log(showLoading)
               alt="coin_img"
               className="w-8 rounded-full shadow-lg shadow-black/50"
             />
-            <h1 className="text-lg font-semibold">{e.name}: USD {e.totalValue.toLocaleString('DE-de')}</h1>
+            <h1 className="text-lg font-semibold">{e.name}: USD {e.totalValue.toLocaleString('DE-de')}  </h1>
             
             <div className="w-8 h-8 shadow-lg shadow-black/50   flex rounded-full  bg-gray-100 absolute right-0" onClick={()=>coinToDelete(e.coinId)}><AiOutlineDelete className="w-12 m-auto text-lg"/></div>
           </div>
@@ -253,6 +265,7 @@ console.log(showLoading)
               .toFixed(2)
               .toLocaleString("de-DE")}
             %</span>
+            <span> op: {e.operations.length}</span>
             
            
           </div>

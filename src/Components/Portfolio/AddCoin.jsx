@@ -13,6 +13,8 @@ function AddCoin({setShowAddCoin, data}) {
     const [coinToShowInInput, setCoinToShowInInput] = useState();
     const [coinToAdd, setCoinToAdd] = useState("")
     const [cantidad, setCantidad] = useState(0)
+    const [date, setDate] = useState()
+    const [price, setPrice] = useState()
 
     const [errorCoinToAdd, setErrorCoinToAdd] = useState("")
     const [errorCantidad, setErrorCantidad] = useState("")
@@ -54,11 +56,19 @@ function AddCoin({setShowAddCoin, data}) {
         setShowAddCoin(false)
       };
 
-    const addCoinToAdd = (index) =>{
+    const addCoinToAdd = (index, coinToAdd) =>{
 
         setCoinToAdd(data.filter(e=>(e.name.toLowerCase().includes(filteredData.toLowerCase())))[index].id)
 
         setCoinToShowInInput(data.filter(e=>(e.name.toLowerCase().includes(filteredData.toLowerCase())))[index].name)
+        
+        setDate(new Date())
+
+        let price = data.find(e=>e.id===data.filter(e=>(e.name.toLowerCase().includes(filteredData.toLowerCase())))[index].id)
+
+        setPrice(price.current_price)
+     
+
         setShowFilteredData(false);
         setShowValueAtInput(true)
 
@@ -86,7 +96,7 @@ function AddCoin({setShowAddCoin, data}) {
             setShowErrorCantidad(true)
         }
         else {
-            uploadPortfolio([...dataToUpload, {coinId:coinToAdd, qty : cantidad}]);
+            uploadPortfolio([...dataToUpload, {coinId:coinToAdd, qty : cantidad, date: date, current_price: price, value:cantidad*price}]);
             setShowLoading(true)
             }
 
