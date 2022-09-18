@@ -31,6 +31,7 @@ function App() {
 
   return (
     <div className="bg-gray-100 min-h-screen">
+      <div className="max-w-[900px] m-auto" >
       <Router>
         <Routes>
 
@@ -43,6 +44,7 @@ function App() {
           
         </Routes>
       </Router>
+    </div>
     </div>
   );
 }
