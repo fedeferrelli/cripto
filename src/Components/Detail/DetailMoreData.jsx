@@ -22,12 +22,12 @@ function DetailMoreData({coin}) {
                <div>All time high: USD {coin.ath.toFixed(2).toLocaleString('de-DE')} </div>
                <div>ATH date: {day}/{month}/{year} </div>
                
-               <div onClick={()=>setShow(!show)} className="w-11/12 mx-auto mt-2 text-gray-600 text-center">Show less</div>    
+               <div className=" m-auto mt-2 text-gray-600 text-center"><span className="px-2 sm:cursor-pointer" onClick={()=>setShow(!show)} >Show less</span></div>    
                
            </Fade>
            :
 
-           <div onClick={()=>setShow(!show)} className="w-11/12 mx-auto mt-2 text-gray-600 text-center">Show more</div>
+           <div className="mx-auto mt-2 text-gray-600 text-center"><span className="px-2 sm:cursor-pointer" onClick={()=>setShow(!show)} >Show more</span></div>
            
 
         }

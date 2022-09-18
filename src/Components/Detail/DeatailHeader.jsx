@@ -1,6 +1,7 @@
 import React from 'react'
 
 function DeatailHeader({coin}) {
+  console.log(coin)
     return (
         <section className="flex flex-col pt-4">
         <img
@@ -17,12 +18,15 @@ function DeatailHeader({coin}) {
           USD {coin.current_price.toLocaleString("DE-de")}
         </div>
 
-        <div className="font-light mx-auto text-xl">Daily Change: 
+        <div className="font-light mx-auto text-xl">Hourly Change: 
                   
-          {coin.price_change_percentage_24h<0 ? 
-          <span className="text-red-500 font-bold"> {coin.price_change_percentage_24h.toFixed(2).toLocaleString('de-DE')}%</span>
+          {coin.price_change_percentage_1h_in_currency
+<0 ? 
+          <span className="text-red-500 font-bold"> {coin.price_change_percentage_1h_in_currency
+            .toFixed(2).toLocaleString('de-DE')}%</span>
           : 
-          <span className="text-green-700 font-bold"> {coin.price_change_percentage_24h.toFixed(2).toLocaleString('de-DE')}%</span>}</div>
+          <span className="text-green-700 font-bold"> {coin.price_change_percentage_1h_in_currency
+            .toFixed(2).toLocaleString('de-DE')}%</span>}</div>
 
       </section>
     )

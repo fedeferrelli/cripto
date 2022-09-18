@@ -74,12 +74,12 @@ function Chart({historicalDate, historicalPrice, coin, period}) {
   
     return(
 
-        <div className="inline-block w-full mr-12 mb-12">
+        <div className="inline-block w-full mr-12 mb-12 sm:mr-auto">
 
             <div className="w-full text-center text-lg text-gray-600">
                 <span className="text-gray-600 mr-2">{period}</span>
-                <span className={low ? 'text-red-400' : 'text-green-600'}  >{varPorcentual}%</span>
-                
+                {/* <span className={low ? 'text-red-400' : 'text-green-600'}  >{varPorcentual}%</span>
+                 */}
                 </div>
          
         <Line options={options} data={{

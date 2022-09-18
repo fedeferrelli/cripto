@@ -11,6 +11,7 @@ function Detail() {
   const [tokenData, setTokenData] = useState();
   const [historicalDate, setHistoricalDate] = useState([])
   const [historicalPrice, setHistoricalPrice] = useState([])
+  const [daysToShowBigScreens, setDaysToShowBigScreens] = useState(7)
 
   const navigate = useNavigate();
 
@@ -25,6 +26,7 @@ function Detail() {
   }, []);
 
   //https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=1%2C14%2C30%2Cmax
+
 
   useEffect(() => {
     let historicalData = []
@@ -50,7 +52,7 @@ function Detail() {
       }
     };
 
-    getData();
+    { typeof(tokenData) !== 'undefined' && getData()};
   }, [tokenData]);
 
   const manipulateDates = (date) =>{
@@ -60,7 +62,7 @@ function Detail() {
     return `${dateAux.getDate()} - ${dateAux.getMonth()+1}`
   }
 
-  console.log(historicalDate)
+ 
 
   return (
     <div className="text-gray-600 pt-4 flex flex-col">
@@ -76,30 +78,45 @@ function Detail() {
 
         <>
 
-        <section>
+        <section className='sm:flex sm:flex-col'>
 
-        <DeatailHeader coin={tokenData}/>
+        <div className=" m-auto mt-0 px-4" >  
+      
 
-        <DetailChanges coin={tokenData}/>
+        <DeatailHeader  coin={tokenData}/>
+      
+        </div>
+
+        <div className="m-auto sm:w-full">
+        <DetailChanges  coin={tokenData} setDaysToShowBigScreens={setDaysToShowBigScreens}/>
 
         <DetailMoreData coin = {tokenData}/>
+        </div>
         </section>
 
 
-<div className="w-11/12 m-auto my-10 overflow-auto whitespace-nowrap">
+<div className="hidden sm:flex  m-auto mt-10 w-full max-w-[700px] bg-gray-200 p-4 rounded-lg mb-20">
+<Chart historicalDate={historicalDate.slice(365-daysToShowBigScreens)} historicalPrice = {historicalPrice.slice(365-daysToShowBigScreens)} coin={tokenData.name} period={`${daysToShowBigScreens} días`}/>
+
+</div>
+
+
+
+<div className="w-11/12 m-auto my-10 overflow-auto whitespace-nowrap
+                sm:hidden">
 
     
-<Chart historicalDate={historicalDate.slice(358)} historicalPrice = {historicalPrice.slice(358)} coin={tokenData.name} period={'7 días'}/>
+<Chart historicalDate={historicalDate.slice(359)} historicalPrice = {historicalPrice.slice(359)} coin={tokenData.name} period={'7 días'}/>
 
-<Chart historicalDate={historicalDate.slice(351)} historicalPrice = {historicalPrice.slice(351)} coin={tokenData.name} period={'14 días'}/>
+<Chart className="bg-green-500 sm:w-1/2" historicalDate={historicalDate.slice(352)} historicalPrice = {historicalPrice.slice(352)} coin={tokenData.name} period={'14 días'}/>
 
-<Chart historicalDate={historicalDate.slice(335)} historicalPrice = {historicalPrice.slice(335)} coin={tokenData.name} period={'30 días'}/>
+<Chart historicalDate={historicalDate.slice(336)} historicalPrice = {historicalPrice.slice(336)} coin={tokenData.name} period={'30 días'}/>
 
-<Chart historicalDate={historicalDate.slice(305)} historicalPrice = {historicalPrice.slice(305)} coin={tokenData.name} period={'60 días'}/>
+<Chart historicalDate={historicalDate.slice(306)} historicalPrice = {historicalPrice.slice(306)} coin={tokenData.name} period={'60 días'}/>
 
-<Chart historicalDate={historicalDate.slice(275)} historicalPrice = {historicalPrice.slice(275)} coin={tokenData.name} period={'90 días'}/>
+<Chart historicalDate={historicalDate.slice(276)} historicalPrice = {historicalPrice.slice(276)} coin={tokenData.name} period={'90 días'}/>
 
-<Chart historicalDate={historicalDate.slice(185)} historicalPrice = {historicalPrice.slice(185)} coin={tokenData.name} period={'180 días'}/>
+<Chart historicalDate={historicalDate.slice(186)} historicalPrice = {historicalPrice.slice(186)} coin={tokenData.name} period={'180 días'}/>
 
 <Chart historicalDate={historicalDate} historicalPrice = {historicalPrice} coin={tokenData.name} period={'365 días'}/>
 
