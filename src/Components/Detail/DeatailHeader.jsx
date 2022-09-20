@@ -1,7 +1,7 @@
 import React from 'react'
 
 function DeatailHeader({coin}) {
-  console.log(coin)
+ 
     return (
         <section className="flex flex-col pt-4">
         <img
