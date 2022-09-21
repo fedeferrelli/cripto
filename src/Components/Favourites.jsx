@@ -299,7 +299,7 @@ function Favourites() {
                   onClick={() => deleteFavToUpload(e.id)}
                 />
               </Fade>
-           /* ) : (
+           /* ) /* : (
               <Fade duration="500">
                 <AiOutlineHeart
                   className="text-2xl text-gray-500 cursor-pointer sm:hover:animate-spin-once  sm:hover:text-red-500/50 duration-300 ease-in-out"

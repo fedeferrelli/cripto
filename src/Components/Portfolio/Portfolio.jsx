@@ -9,6 +9,7 @@ import { AiOutlinePlus } from "react-icons/ai";
 import AddCoins from "./AddCoin";
 import Loading from "../../assets/Loading";
 import {AiOutlineDelete} from "react-icons/ai";
+import {AiOutlineArrowRight} from 'react-icons/ai';
 
 function Portfolio({ data }) {
   const [portfolio, setPortfolio] = useState([]);
@@ -196,7 +197,7 @@ const setOperationToBeDetailed = (operations) => {
 
       {/* barra de navegación */}
 
-      <div className="m-auto w-full sticky top-0 py-2 bg-gray-100  z-40">
+  {/*     <div className="m-auto w-full sticky top-0 py-2 bg-gray-100  z-40">
         <div className="w-11/12 m-auto flex justify-end">
           <div className="text-gray-400 flex pl-4">
             <button className="text-xl m-auto" onClick={() => navigate("/")}>
@@ -215,12 +216,48 @@ const setOperationToBeDetailed = (operations) => {
             <button className="text-xl m-auto">Portfolio</button>
           </div>
         </div>
+      </div> */}
+      
+      <div className="m-auto w-full top-0 py-4 bg-gray-100 sticky shadow-md shadow-gray-200 z-50">
+        <div className="w-11/12 m-auto flex justify-end">
+{/*           <input
+            type="text"
+            placeholder="Buscar"
+            className="italic  px-3 py-2 bg-gray-200 border border-gray-300 rounded-lg shadow-sm   m-auto text-gray-400 outline-none w-20 focus:w-full focus:shadow-gray-500 ease-in-out duration-700 ml-0"
+            onChange={(e) => {
+              setFilter(e.target.value);
+            }}
+          ></input> */}
+          <div className="text-gray-400 flex pl-4">
+            <button className="text-xl m-auto"
+            onClick={() => navigate("/")}
+            >
+              Lista</button>
+          </div>
+          <div className="text-gray-400 flex pl-4">
+            <button
+              className="text-xl m-auto"
+              onClick={() => navigate("/favourites")}
+            >
+              Favoritos
+            </button>
+          </div>
+          <div className="text-gray-600 flex pl-4">
+            <button
+              className="text-xl m-auto"
+            >
+              Portfolio
+            </button>
+          </div>
+        </div>
       </div>
+
 
       {/* Botón para agregar criptos al portfolio */}
 
       <div
-        className="fixed z-50  bottom-2 right-2 w-14 h-14 rounded-full border border-gray-400/50 bg-gray-300 shadow-md shadow-gray-400 flex overflow-hidden p-3"
+        className="fixed z-50  bottom-2 right-2 w-14 h-14 rounded-full border border-gray-400/50 bg-gray-300 shadow-md shadow-gray-400 flex overflow-hidden p-3
+        sm:cursor-pointer sm:hover:shadow-gray-600 duration-300 ease-in-out"
         onClick={() => setShowAddCoin(true)}
       >
         <AiOutlinePlus className="m-auto text-gray-700 h-full w-full" />
@@ -236,26 +273,33 @@ const setOperationToBeDetailed = (operations) => {
       {typeof portfolioChanges.price_change_percentage_24h !== "undefined" &&
         typeof portfolioValue !== NaN && portfolio.length !== 0 && (
           <PortfolioHeader
-            portfolioValue={portfolioValue.toFixed(3)}
+            portfolioValue={portfolioValue.toFixed(2)}
             portfolioChange_1d={portfolioChanges.price_change_percentage_24h}
           />
         )}
 
-      <div className="w-11/12 m-auto mt-8">
+        <div className="flex flex-col sm:flex-row justify-center">
+
+      <div className="w-11/12 m-auto mt-8 sm:w-1/2">
         <PortfolioChart coins={chartCoin} weights={chartWeight} />
       </div>
 
-      {portfolio.length !== 0 && <DetailChanges coin={portfolioChanges} />}
+      <div className="m-auto">
 
+      {portfolio.length !== 0 && <DetailChanges coin={portfolioChanges} />}
+      </div>
+      </div>
+
+      <div className="sm:flex sm:flex-wrap sm:justify-center ">
       {portfolio.sort((a, b)=>{return b.totalValue - a.totalValue}).map((e, index) => (
         
         <div
           key={index}
 /*           className="w-11/12 bg-gray-300 m-auto rounded-lg my-3 p-3 py-4" */
-          className="border w-11/12 sm:w-60 bg-gray-200 border-gray-400/50 rounded-lg shadow-md shadow-gray-500/50 px-3 py-4 my-5 m-auto text-gray-700 relative overflow-hidden" 
+          className="border w-11/12 sm:w-60 bg-gray-200 border-gray-400/50 rounded-lg shadow-md shadow-gray-500/50 px-3 py-4 my-5 m-auto text-gray-700 relative overflow-hidden " 
         >
 
-<div className="w-10/12  h-auto absolute left-0 top-0 bottom-0 z-10" onClick={()=>setOperationToBeDetailed(e)} ></div>
+
 
 
 {showDeleteOption === e.coinId && (
@@ -273,17 +317,17 @@ const setOperationToBeDetailed = (operations) => {
 }          
 
 
-          <div className="flex flex-row items-center gap-2 relative">
+          <div className="flex flex-row sm:flex-col items-center gap-2 relative ">
             <img
               src={e.image}
               alt="coin_img"
-              className="w-8 rounded-full shadow-lg shadow-black/50"
+              className="w-8 sm:w-10  rounded-full shadow-lg shadow-black/50"
             />
-            <h1 className="text-lg font-semibold">{e.name}: USD {e.totalValue.toLocaleString('DE-de')}  </h1>
+            <h1 className="text-lg font-semibold sm:text-center">{e.name} <span className="sm:block">USD {e.totalValue.toLocaleString('DE-de')} </span> </h1>
 
             {/* borrar coin */}
             
-            <div className="w-8  h-8 shadow-lg shadow-black/50   flex rounded-full  bg-gray-100 absolute right-0" onClick={()=>setShowDeleteOption(e.coinId)}><AiOutlineDelete className="w-12 m-auto text-lg"/></div>
+            <div className="w-8  h-8 shadow-lg shadow-black/50   flex rounded-full  bg-gray-100 absolute right-0 sm:top-0" onClick={()=>setShowDeleteOption(e.coinId)}><AiOutlineDelete className="w-12 m-auto text-lg"/></div>
 
 
           </div>
@@ -291,18 +335,25 @@ const setOperationToBeDetailed = (operations) => {
           
           
 
-          <div className="flex justify-left pl-10 gap-4">
-            <span>qty: {e.qty.toLocaleString("de-DE")}</span>
-            <span> weight: {((e.totalValue / portfolioValue) * 100)
+          <div className="flex flex-col justify-left pl-10 gap-1 font-light sm:pl-4">
+            <span>Cantidad: {e.qty.toLocaleString("de-DE")}</span>
+            <span> Ponderación: {((e.totalValue / portfolioValue) * 100)
               .toFixed(2)
               .toLocaleString("de-DE")}
             %</span>
-            <span> op: {e.operations.length}</span>
+            <span> Operaciones: {e.operations.length}</span>
             
            
           </div>
+
+          <div className="sm:flex  w-auto  mt-3">
+                <div className="rounded-full  w-28 sm:w-auto cursor-pointer flex justify-center items-center py-1 text-sm px-3 m-auto border border-gray-400/50 hover:shadow-md duration-300 ease-in-out" onClick={()=>setOperationToBeDetailed(e)}>
+                  <span className="mr-1">Detalle </span> <AiOutlineArrowRight/>
+                </div>
+              </div>
+
         </div>
-      ))}
+      ))}</div>
     </div>
   );
 }
