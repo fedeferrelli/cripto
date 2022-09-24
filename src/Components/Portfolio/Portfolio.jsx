@@ -10,6 +10,7 @@ import AddCoins from "./AddCoin";
 import Loading from "../../assets/Loading";
 import {AiOutlineDelete} from "react-icons/ai";
 import {AiOutlineArrowRight} from 'react-icons/ai';
+import {Fade} from 'react-awesome-reveal'
 
 function Portfolio({ data }) {
   const [portfolio, setPortfolio] = useState([]);
@@ -278,7 +279,7 @@ const setOperationToBeDetailed = (operations) => {
 
 {showDeleteOption === e.coinId && (
 
-<div className="w-full z-10 flex flex-col bg-gray-300 absolute left-0 top-0 bottom-0 right-0 " >
+<Fade duration='700' direction="down" className="w-full z-10 flex flex-col bg-gray-300 absolute left-0 top-0 bottom-0 right-0 " >
 
   <div className="m-auto w-full h-full flex flex-col justify-evenly">
 
@@ -289,7 +290,7 @@ const setOperationToBeDetailed = (operations) => {
     <button className=" w-1/3 rounded-lg m-auto text-center py-1   bg-red-500/95 text-gray-800" onClick={()=>setShowDeleteOption()}> Cancelar </button>
   </div>
 
-</div> </div>)
+</div> </Fade>)
 }          
 
 
