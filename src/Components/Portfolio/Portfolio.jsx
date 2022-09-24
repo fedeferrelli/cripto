@@ -53,7 +53,7 @@ function Portfolio({ data }) {
 
         let arrayCoinsAgregadas = coins.map(e=>(doc.data().port.filter(i=> i.coinId===e)))
 
-        console.log(arrayCoinsAgregadas) 
+       
         let arrayCoinUnicasAgregadas = [];
 
         // se busca que el array con dos elemntos (coin duplicada) se tranforme en un objeto con la suma de las cantidades de las coins. Ese objto se agrega a un array final  
@@ -175,7 +175,6 @@ function Portfolio({ data }) {
     setShowDeleteOption()
     uploadPortfolio(newPortfolioToUpload)
   }
-console.log(portfolio)
 
 const setOperationToBeDetailed = (operations) => {
   sessionStorage.setItem("operations", JSON.stringify(operations));
@@ -185,7 +184,7 @@ const setOperationToBeDetailed = (operations) => {
   return (
 
     
-    <div className="pb-16">
+    <div className="pb-16 ">
 
 {showLoading && (
         <div className="w-full">
@@ -197,26 +196,6 @@ const setOperationToBeDetailed = (operations) => {
 
       {/* barra de navegación */}
 
-  {/*     <div className="m-auto w-full sticky top-0 py-2 bg-gray-100  z-40">
-        <div className="w-11/12 m-auto flex justify-end">
-          <div className="text-gray-400 flex pl-4">
-            <button className="text-xl m-auto" onClick={() => navigate("/")}>
-              Lista
-            </button>
-          </div>
-          <div className="text-gray-400 flex pl-4">
-            <button
-              className="text-xl m-auto"
-              onClick={() => navigate("/favourites")}
-            >
-              Favoritos
-            </button>
-          </div>
-          <div className="text-gray-600 flex pl-4">
-            <button className="text-xl m-auto">Portfolio</button>
-          </div>
-        </div>
-      </div> */}
       
       <div className="m-auto w-full top-0 py-4 bg-gray-100 sticky shadow-md shadow-gray-200 z-50">
         <div className="w-11/12 m-auto flex justify-end">

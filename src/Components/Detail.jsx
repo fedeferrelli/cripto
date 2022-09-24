@@ -67,7 +67,7 @@ function Detail() {
   return (
     <div className="text-gray-600 pt-4 flex flex-col">
       <div
-        className="rounded-full w-auto text-center bottom-3 ml-4 px-5 py-2 flex gap-2 text-gray-600 border border-gray-400 shadow-md fixed shadow-gray-400 bg-gray-100"
+        className="rounded-full w-auto text-center bottom-3 ml-4 px-5 py-2 flex gap-2 text-gray-600 border border-gray-400 shadow-md fixed shadow-gray-400 bg-gray-100 sm:cursor-pointer"
         onClick={() => navigate(-1)}
       >
         <AiOutlineArrowLeft className="text-gray-400 text-lg m-auto"/>

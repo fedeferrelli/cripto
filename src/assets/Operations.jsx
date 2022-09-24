@@ -48,7 +48,7 @@ function Operations() {
         
       <div className="text-gray-600 pt-4 flex flex-col">
       <div
-        className="rounded-full w-auto text-center bottom-3 ml-4 px-5 py-2 flex gap-2 text-gray-600 border border-gray-400 shadow-md fixed shadow-gray-400 bg-gray-100"
+        className="rounded-full w-auto sm:cursor-pointer text-center bottom-3 ml-4 px-5 py-2 flex gap-2 text-gray-600 border border-gray-400 shadow-md fixed shadow-gray-400 bg-gray-100"
         onClick={() => navigate(-1)}
       >
         <AiOutlineArrowLeft className="text-gray-400 text-lg m-auto"/>
@@ -87,10 +87,10 @@ function Operations() {
 
       </section>
 
-        <div className="text-gray-800 font-semibold text-center mt-8  text-2xl">Operaciones: <span className="">{operations.operations.length}</span></div>
+        <div className="text-gray-800 font-semibold text-center mt-8  text-2xl"><span className="">{operations.operations.length}</span> operaciones: </div>
 
         {operations.operations.map((e, index)=>
-        <div key={index} className="w-11/12 bg-gray-300 flex flex-col mt-4 m-auto rounded-md p-3 border border-gray-300/50 shadow-md">
+        <div key={index} className="w-11/12 bg-gray-200 flex flex-col mt-4 m-auto rounded-md p-3 border border-gray-300/50 shadow-md">
         
           <div className=" text-center text-gray-800 font-semibold">{manageDate(e.date)}</div>
 
@@ -100,14 +100,14 @@ function Operations() {
 
           <div>cantidad: {Number(e.qty).toLocaleString('DE-de')}</div>
 
-          <div>price: USD {e.price.toFixed(2).toLocaleString('DE-de')}</div>
+          <div>price: USD {e.price.toLocaleString('DE-de')}</div>
 
          <div>value: USD {e.value.toLocaleString('DE-de')}</div>
           </div>
 
           <div className="w-1/3 text-right flex justify-center items-center">
 
-          <div className="m-auto text-xl font-semibold w-20 h-20 rounded-full bg-gray-400/50 shadow-lg flex">
+          <div className="m-auto text-xl font-semibold w-20 h-20 rounded-full bg-gray-300 shadow-lg flex">
             <span className= {(operations.current_price/e.price-1) < 0 ? 'text-red-500 m-auto' : 'text-green-700 m-auto '} >
               
             {((operations.current_price/e.price-1)*100).toFixed(2)}%

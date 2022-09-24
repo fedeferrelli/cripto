@@ -3,7 +3,7 @@ import db from "../assets/firebase";
 import { collection, doc, setDoc, getDocs } from "firebase/firestore";
 
 import { useNavigate } from "react-router-dom";
-import { ImSpinner9 } from "react-icons/im";
+import Loading from '../assets/Loading';
 import { AiFillHeart, AiOutlineHeart, AiOutlineLoading } from "react-icons/ai";
 import { Fade } from "react-awesome-reveal";
 import {AiOutlineArrowRight} from 'react-icons/ai';
@@ -147,9 +147,12 @@ function Favourites() {
       </div>
   
         {showLoading && (
-          <div className="w-full h-screen flex ">
+          <div className="w-full">
+          <Loading />
+        </div>
+        /*   <div className="w-full h-screen flex ">
             <ImSpinner9 className="m-auto text-4xl text-gray-600 animate-spin" />
-          </div>
+          </div> */
         )}
   
         {dataFavourites.map((e, index) => (
