@@ -263,8 +263,10 @@ const setOperationToBeDetailed = (operations) => {
         <AiOutlinePlus className="m-auto text-gray-700 h-full w-full" />
       </div>
 
-      {showAddCoin && <AddCoins setShowAddCoin={setShowAddCoin} data={data} />}
+      <div className="bg-yellow-400 m-auto">
 
+      {showAddCoin && <AddCoins setShowAddCoin={setShowAddCoin} data={data} />}
+      </div>
 
 {/* pantalla */}
 

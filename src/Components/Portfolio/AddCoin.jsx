@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import db from '../../assets/firebase';
 import Loading from '../../assets/Loading';
 import { collection, doc, setDoc, getDocs } from "firebase/firestore";
+import {Fade} from 'react-awesome-reveal'
 
 function AddCoin({setShowAddCoin, data}) {
 
@@ -108,7 +109,7 @@ function AddCoin({setShowAddCoin, data}) {
 
      
 
-        <div className="w-full flex h-screen fixed top-0 bg-gray-100 z-50">
+        <Fade duration='300' className="w-full sm:m-auto flex h-screen fixed bottom- right-0 left-0 top-0 bg-gray-100/90 z-50">
 
 {showLoading && (
             <div className="w-full">
@@ -116,7 +117,7 @@ function AddCoin({setShowAddCoin, data}) {
             </div>
           )}
             
-            <section className="w-11/12 mt-20 mb-auto mx-auto flex flex-col border border-gray-300/50 bg-gray-200 shadow-md rounded-lg p-4">
+            <section className="w-11/12 sm:w-96 mt-20 mb-auto mx-auto flex flex-col border border-gray-300/50 bg-gray-200 shadow-md rounded-lg p-4">
 
                 <h1 className="w-full text-gray-700 px-6 text-center m-auto text-xl mb-5">¿Qué cripto querés agregar a tu portafolio?</h1>
 
@@ -140,7 +141,7 @@ function AddCoin({setShowAddCoin, data}) {
 
                     {data.filter(e=>(e.name.toLowerCase().includes(filteredData.toLowerCase())))
                     .map((i, index)=>(
-                        <div key={index} className="w-full border-b-[0.2px] border-gray-700 p-2 italic" 
+                        <div key={index} className="w-full border-b-[0.2px] border-gray-700 p-2 italic sm:cursor-pointer" 
                         onClick={()=> addCoinToAdd(index)}>{i.name}</div>
                     ))} </> }
 
@@ -179,7 +180,7 @@ function AddCoin({setShowAddCoin, data}) {
             
             
            
-        </div>
+        </Fade>
     )
 }
 
