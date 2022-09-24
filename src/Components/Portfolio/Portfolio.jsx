@@ -199,14 +199,7 @@ const setOperationToBeDetailed = (operations) => {
       
       <div className="m-auto w-full top-0 py-4 bg-gray-100 sticky shadow-md shadow-gray-200 z-50">
         <div className="w-11/12 m-auto flex justify-end">
-{/*           <input
-            type="text"
-            placeholder="Buscar"
-            className="italic  px-3 py-2 bg-gray-200 border border-gray-300 rounded-lg shadow-sm   m-auto text-gray-400 outline-none w-20 focus:w-full focus:shadow-gray-500 ease-in-out duration-700 ml-0"
-            onChange={(e) => {
-              setFilter(e.target.value);
-            }}
-          ></input> */}
+
           <div className="text-gray-400 flex pl-4">
             <button className="text-xl m-auto"
             onClick={() => navigate("/")}
@@ -285,16 +278,18 @@ const setOperationToBeDetailed = (operations) => {
 
 {showDeleteOption === e.coinId && (
 
-<div className="w-full z-10 flex flex-col justify-between px-3 py-2 bg-gray-200 absolute left-0 top-0 bottom-0 right-0" >
+<div className="w-full z-10 flex flex-col bg-gray-300 absolute left-0 top-0 bottom-0 right-0 " >
 
-<div className="w-full text-center m-auto"> ¿Estás seguro? </div>
+  <div className="m-auto w-full h-full flex flex-col justify-evenly">
+
+<div className="w-full text-center m-auto px-2"> ¿Estás seguro que querés eliminar esta operación de <span className="font-bold">{e.name}</span> por <span className="font-bold">USD {e.totalValue.toLocaleString('DE-de')}</span>? </div>
   
-  <div className="text-center flex text-gray-100 justify-evenly "> 
-    <button className="bg-green-700 w-1/3" onClick={()=>coinToDelete(e.coinId)}> Sí </button>
-    <button className=" bg-red-500 w-1/3  rounded-sm py-1" onClick={()=>setShowDeleteOption()}> Cancelar </button>
+  <div className="text-center m-auto flex flex-row w-full text-gray-100 justify-evenly"> 
+    <button className="w-1/3 rounded-lg m-auto text-center py-1   bg-green-600/95 text-gray-800" onClick={()=>coinToDelete(e.coinId)}> Sí </button>
+    <button className=" w-1/3 rounded-lg m-auto text-center py-1   bg-red-500/95 text-gray-800" onClick={()=>setShowDeleteOption()}> Cancelar </button>
   </div>
 
-</div>)
+</div> </div>)
 }          
 
 
@@ -308,7 +303,7 @@ const setOperationToBeDetailed = (operations) => {
 
             {/* borrar coin */}
             
-            <div className="w-8  h-8 shadow-lg shadow-black/50   flex rounded-full  bg-gray-100 absolute right-0 sm:top-0" onClick={()=>setShowDeleteOption(e.coinId)}><AiOutlineDelete className="w-12 m-auto text-lg"/></div>
+            <div className="w-8  h-8 shadow-lg shadow-black/50   flex rounded-full  bg-gray-100 absolute right-0 sm:top-0 sm:cursor-pointer" onClick={()=>setShowDeleteOption(e.coinId)}><AiOutlineDelete className="w-12 m-auto text-lg"/></div>
 
 
           </div>
